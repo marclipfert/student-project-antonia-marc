@@ -12,6 +12,9 @@ To Do:
   - drop observations with missing value equal to 0 (about 10% of obs)
   - correct minor mistakes in generating calendar month of birth variable which is used for robustness checks
 - there should be a heterogenous treatment effect among rather rich and poor families --> we aim at estimating two different effects to       gain more precise information about the treatment effect
+- examine whether accounting for autocorrelation is necessary in the given context
+- since the benefit was suspended in the aftermath of the financial crisis, we will exploit this fact and apply the identical research       design to the abolishment of the policy in order to study the effect on conceptions
+- we will investigate threats to validity using simulations as well as a placebo test
 
 
 
