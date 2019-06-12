@@ -5,7 +5,7 @@
 \tikzset{
     -Latex,auto,node distance =1 cm and 1 cm,semithick ,
     state/.style ={ellipse, draw, minimum width = 0.7 cm},
-    point/.style = {circle, draw, inner sep=0.04cm,fill,node contents={}},
+    point/.style = {circle, draw, inner sep=0.06cm,fill,node contents={}},
     bidirected/.style={Latex-Latex,dashed},
     el/.style = {inner sep=2pt, align=left, sloped}
 }
@@ -20,8 +20,8 @@
     \node (e) at (5.5,2.5) [label=above:expenditures, point];
 		\node (l) at (5.5,0) [label=above:labor supply, point];
 		\node (c) at (5.5,-2.5) [label=below:child care use, point];
-		\node (p) at (8,0) [label=right:personal characteristics, point];
-		\node (pu) at (8.12,0) [point, fill=none];
+		\node (p) at (8,0) [label=below right:personal characteristics, point];
+		\node (pu) at (8.17,0) [point, fill=none];
 
     \path (t) edge (D);
 		\path (D) edge (w);
