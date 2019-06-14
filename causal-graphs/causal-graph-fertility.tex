@@ -1,11 +1,14 @@
 \documentclass[crop,tikz,convert=pdf2svg,8pt]{standalone}
 
+\newcommand{\RomanNumeralCaps}[1]
+    {\MakeUppercase{\romannumeral #1}}
+
 % Tikz settings optimized for causal graphs.
 \usetikzlibrary{shapes,decorations,arrows,calc,arrows.meta,fit,positioning}
 \tikzset{
     -Latex,auto,node distance =1 cm and 1 cm,semithick ,
     state/.style ={ellipse, draw, minimum width = 0.7 cm},
-    point/.style = {circle, draw, inner sep=0.06cm,fill,node contents={}},
+    point/.style = {circle, draw, inner sep=0.08cm,fill,node contents={}},
     bidirected/.style={Latex-Latex,dashed},
     el/.style = {inner sep=2pt, align=left, sloped}
 }
@@ -14,13 +17,13 @@
 
 % The graph
 \begin{tikzpicture}
-    \node (t) at (0,0) [label=left:time, point];
-    \node (D) at (0.8,0) [label=right:child benefit, point];
-    \node (c) at (3,2.5) [label=above:conception, point, fill=none];
-    \node (a) at (3,-2.5) [label=below:abortion, point];
-		\node (b) at (4,0) [label=above right:birth, point];
-		\node (p) at (5.7,0) [label=below right:personal characteristics, point];
-		\node (pu) at (5.87,0) [point, fill=none];
+    \node (t) at (-2,0) [label=left:T, point];
+    \node (D) at (0.8,0) [label=right:D, point];
+    \node (c) at (3,3) [label=above:Y\RomanNumeralCaps{1}, point, fill=none];
+    \node (a) at (3,-3) [label=below:Y\RomanNumeralCaps{2}, point];
+		\node (b) at (5.4,0) [label=left:B, point];
+		\node (p) at (8.2,0.8) [label=right:P, point];
+		\node (u) at (8.2,-0.8) [label=right:U, point, fill=none];
 
     \path (t) edge (D);
 		\path (t) edge (c);
@@ -32,7 +35,20 @@
 		\path (p) edge (c);
 		\path (p) edge (a);
 		\path (p) edge (b);
+		\path (u) edge (c);
+		\path (u) edge (a);
+		\path (u) edge (b);
     %\path[bidirected] (2) edge[bend left=50]  (3);
+		
+		%Legend%
+		\node (l1) at (6,-2.3) [label=right:\tiny T: time];
+		\node (l2) at (6,-2.5) [label=right:\tiny D: possibility to get child benefit];
+		\node (l3) at (6,-2.7) [label=right:\tiny Y\RomanNumeralCaps{1}: number of conceptions];
+		\node (l4) at (6,-2.9) [label=right:\tiny Y\RomanNumeralCaps{2}: number of abortions];
+		\node (l5) at (6,-3.1) [label=right:\tiny B: number of births];
+		\node (l6) at (6,-3.3) [label=right:\tiny P: personal characteristics];
+		\node (l7) at (6,-3.5) [label=right:\tiny U: unobservables];
+
 \end{tikzpicture}
 
 \end{document}
