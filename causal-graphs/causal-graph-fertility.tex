@@ -18,12 +18,12 @@
 % The graph
 \begin{tikzpicture}
     \node (t) at (-2,0) [label=left:T, point];
-    \node (D) at (0.8,0) [label=right:D, point];
-    \node (c) at (3,3) [label=above:Y\RomanNumeralCaps{1}, point, fill=none];
-    \node (a) at (3,-3) [label=below:Y\RomanNumeralCaps{2}, point];
-		\node (b) at (5.4,0) [label=left:B, point];
-		\node (p) at (8.2,0.8) [label=right:P, point];
-		\node (u) at (8.2,-0.8) [label=right:U, point, fill=none];
+    \node (D) at (1,0) [label=right:D, point];
+    \node (c) at (4.5,3) [label=above:Y\textsubscript{\RomanNumeralCaps{1}}, point];
+    \node (a) at (4.5,-3) [label=below:Y\textsubscript{\RomanNumeralCaps{2}}, point];
+		\node (b) at (8,0) [label=left:B, point];
+		%\node (p) at (8.2,0.8) [label=right:P, point];
+		%\node (u) at (8.2,-0.8) [label=right:U, point, fill=none];
 
     \path (t) edge (D);
 		\path (t) edge (c);
@@ -31,23 +31,24 @@
     \path (D) edge (c);
 		\path (D) edge (a);
 		\path (c) edge (b);
+		\path (c) edge (a);
 		\path (a) edge (b);
-		\path (p) edge (c);
-		\path (p) edge (a);
-		\path (p) edge (b);
-		\path (u) edge (c);
-		\path (u) edge (a);
-		\path (u) edge (b);
+		%\path (p) edge (c);
+		%\path (p) edge (a);
+		%\path (p) edge (b);
+		%\path (u) edge (c);
+		%\path (u) edge (a);
+		%\path (u) edge (b);
     %\path[bidirected] (2) edge[bend left=50]  (3);
 		
 		%Legend%
 		\node (l1) at (6,-2.3) [label=right:\tiny T: time];
-		\node (l2) at (6,-2.5) [label=right:\tiny D: possibility to get child benefit];
-		\node (l3) at (6,-2.7) [label=right:\tiny Y\RomanNumeralCaps{1}: number of conceptions];
-		\node (l4) at (6,-2.9) [label=right:\tiny Y\RomanNumeralCaps{2}: number of abortions];
+		\node (l2) at (6,-2.5) [label=right:\tiny D: child benefit];
+		\node (l3) at (6,-2.7) [label=right:\tiny Y\textsubscript{\RomanNumeralCaps{1}}: number of conceptions];
+		\node (l4) at (6,-2.9) [label=right:\tiny Y\textsubscript{\RomanNumeralCaps{1}}: number of abortions];
 		\node (l5) at (6,-3.1) [label=right:\tiny B: number of births];
-		\node (l6) at (6,-3.3) [label=right:\tiny P: personal characteristics];
-		\node (l7) at (6,-3.5) [label=right:\tiny U: unobservables];
+		%\node (l6) at (6,-3.3) [label=right:\tiny P: personal characteristics];
+		%\node (l7) at (6,-3.5) [label=right:\tiny U: unobservables];
 
 \end{tikzpicture}
 
