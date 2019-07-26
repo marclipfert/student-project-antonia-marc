@@ -20,4 +20,6 @@ To Do:
 - we will investigate threats to validity using simulations as well as a placebo test
 
 
+[//]: <> (Comment: Badges for Travis CI, MIT License and Black Code Style)
 
+[![Build Status](https://travis-ci.org/HumanCapitalAnalysis/student-project-timmens.svg?branch=master)](https://travis-ci.org/HumanCapitalAnalysis/student-project-antonia-marc) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](HumanCapitalAnalysis/student-project-antonia-marc/blob/master/LICENSE)
