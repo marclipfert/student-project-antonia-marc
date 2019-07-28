@@ -40,7 +40,7 @@ def group_data():
     return dfb
 
 
-def gen_additional_vars():
+def complete_processing_conceptions_data():
     dfb = group_data()
     
     # calendar month of conception
@@ -112,67 +112,6 @@ def gen_additional_vars():
 
 
 
-# *********************************** CONCEPTIONS - REGRESSIONS **********************************
-
-
-def reg_conception():
-    dfb = gen_additional_vars()
-    
-    # create necessary subsets of dfb
-    dfb_list = list()
-
-    dfb_list.append(dfb.loc[(dfb['mc']>-91) & (dfb['mc']<30)]) # 10 years
-    dfb_list.append(dfb.loc[(dfb['mc']>-31) & (dfb['mc']<30)]) # 5 years
-    dfb_list.append(dfb.loc[(dfb['mc']>-13) & (dfb['mc']<12)]) # 12 months
-    dfb_list.append(dfb.loc[(dfb['mc']>-10) & (dfb['mc']<9)]) # 9 months
-    dfb_list.append(dfb.loc[(dfb['mc']>-4) & (dfb['mc']<3)]) # 3 months
-    dfb_list.append(dfb.loc[(dfb['mc']>-67) & (dfb['mc']<30)]) # 8 years
-    
-    # regress
-    reg1 = smf.ols(formula =
-            'ln ~ post + mc + post*mc + mc2 + post*mc2 + mc3 + post*mc3 + days', data=dfb_list[0]).fit(cov_type='HC1')
-    reg2 = smf.ols(formula =
-            'ln ~ post + mc + post*mc + mc2 + post*mc2 + days', data=dfb_list[1]).fit(cov_type='HC1')
-    reg3 = smf.ols(formula =
-            'ln ~ post + mc + post*mc + mc2 + post*mc2 + days', data=dfb_list[2]).fit(cov_type='HC1')
-    reg4 = smf.ols(formula =
-            'ln ~ post + mc + post*mc + days', data=dfb_list[3]).fit(cov_type='HC1')
-    reg5 = smf.ols(formula =
-            'ln ~ post + days', data=dfb_list[4]).fit(cov_type='HC1')
-    reg6 = smf.ols(formula =
-            'ln ~ post + mc + post*mc + mc2 + post*mc2 + mc3 + post*mc3 + days + feb + mar + apr + mai + jun + jul + aug + sep + oct + nov + dec', data=dfb_list[0]).fit(cov_type='HC1')
-    reg7 = smf.ols(formula =
-            'ln ~ post + mc + post*mc + mc2 + post*mc2 + days + feb + mar + apr + mai + jun + jul + aug + sep + oct + nov + dec', data=dfb_list[5]).fit(cov_type='HC1')
-    reg8 = smf.ols(formula =
-            'ln ~ post + mc + post*mc + mc2 + post*mc2 + days + feb + mar + apr + mai + jun + jul + aug + sep + oct + nov + dec', data=dfb_list[1]).fit(cov_type='HC1')
-    
-    # store regression results in list
-    reg_list_b = [reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8]
-
-
-    # Make a table equivalent to Table 2 with coefficients and se for post variable
-    print('\u2014'*110)
-    print('{:<12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'
-          .format("", "RDD (1)", "RDD (2)", "RDD (3)", "RDD (4)", "RDD (5)", "DID (6)", "DID (7)", "DID (8)"))
-    print('{:<12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'
-          .format("", "10 years", "5 years", "12 months", "9 months", "3 months", "10 years", "7 years", "5 years"))
-    print('\u2014'*110)
-    print('{:<12s}'.format("Conceptions"), end="")
-    for i in range(len(reg_list_b)):
-        print ('{:>12.4f}'.format(reg_list_b[i].params.post),  end="")
-    print(" "*110)
-    print('{:<12s}'.format(""), end="")
-    for j in range(len(reg_list_b)):
-        print ('{:>12.4f}'.format(reg_list_b[j].bse.post), end="")
-    print(" "*110)
-    print('{:<12s}'.format(""), end="")
-    for j in range(len(reg_list_b)):
-        print ('\033[1m' '{:>12.4f}' '\033[0m'.format(reg_list_b[j].pvalues.post), end="")
-
-        
-    return reg_list_b
- 
-
         
 #************************************** ABORTIONS ********************************************
 
@@ -238,22 +177,63 @@ def process_abortions_data():
 
 
 
+
+
+# *********************************** CONCEPTIONS - REGRESSIONS **********************************
+
+
+def reg_conception(data_frame):
+    
+    # create necessary subsets of data_frame
+    dfb_list = list()
+
+    dfb_list.append(data_frame.loc[(data_frame['mc']>-91) & (data_frame['mc']<30)]) # 10 years
+    dfb_list.append(data_frame.loc[(data_frame['mc']>-31) & (data_frame['mc']<30)]) # 5 years
+    dfb_list.append(data_frame.loc[(data_frame['mc']>-13) & (data_frame['mc']<12)]) # 12 months
+    dfb_list.append(data_frame.loc[(data_frame['mc']>-10) & (data_frame['mc']<9)]) # 9 months
+    dfb_list.append(data_frame.loc[(data_frame['mc']>-4) & (data_frame['mc']<3)]) # 3 months
+    dfb_list.append(data_frame.loc[(data_frame['mc']>-67) & (data_frame['mc']<30)]) # 8 years
+    
+    # regress
+    reg1 = smf.ols(formula =
+            'ln ~ post + mc + post*mc + mc2 + post*mc2 + mc3 + post*mc3 + days', data=dfb_list[0]).fit(cov_type='HC1')
+    reg2 = smf.ols(formula =
+            'ln ~ post + mc + post*mc + mc2 + post*mc2 + days', data=dfb_list[1]).fit(cov_type='HC1')
+    reg3 = smf.ols(formula =
+            'ln ~ post + mc + post*mc + mc2 + post*mc2 + days', data=dfb_list[2]).fit(cov_type='HC1')
+    reg4 = smf.ols(formula =
+            'ln ~ post + mc + post*mc + days', data=dfb_list[3]).fit(cov_type='HC1')
+    reg5 = smf.ols(formula =
+            'ln ~ post + days', data=dfb_list[4]).fit(cov_type='HC1')
+    reg6 = smf.ols(formula =
+            'ln ~ post + mc + post*mc + mc2 + post*mc2 + mc3 + post*mc3 + days + feb + mar + apr + mai + jun + jul + aug + sep + oct + nov + dec', data=dfb_list[0]).fit(cov_type='HC1')
+    reg7 = smf.ols(formula =
+            'ln ~ post + mc + post*mc + mc2 + post*mc2 + days + feb + mar + apr + mai + jun + jul + aug + sep + oct + nov + dec', data=dfb_list[5]).fit(cov_type='HC1')
+    reg8 = smf.ols(formula =
+            'ln ~ post + mc + post*mc + mc2 + post*mc2 + days + feb + mar + apr + mai + jun + jul + aug + sep + oct + nov + dec', data=dfb_list[1]).fit(cov_type='HC1')
+    
+    # store regression results in list
+    reg_list_b = [reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8]
+
+       
+    return reg_list_b
+ 
+
+    
 #******************************* REGRESSIONS ABORTIONS ****************************************
 
-def reg_abortion():
-    dfa = process_abortions_data()
-    reg_list_b = reg_conception()
-    
-    # create necessary subsets of dfb
+def reg_abortion(data_frame):
+        
+    # create necessary subsets of data_frame
     dfa_list = list()
 
     # same subsets as for births data set
-    dfa_list.append(dfa.loc[(dfa['m']>-91) & (dfa['m']<30)]) # 10 years
-    dfa_list.append(dfa.loc[(dfa['m']>-31) & (dfa['m']<30)]) # 5 years
-    dfa_list.append(dfa.loc[(dfa['m']>-13) & (dfa['m']<12)]) # 12 months
-    dfa_list.append(dfa.loc[(dfa['m']>-10) & (dfa['m']<9)]) # 9 months
-    dfa_list.append(dfa.loc[(dfa['m']>-4) & (dfa['m']<3)]) # 3 months
-    dfa_list.append(dfa.loc[(dfa['m']>-67) & (dfa['m']<30)]) # 8 years
+    dfa_list.append(data_frame.loc[(data_frame['m']>-91) & (data_frame['m']<30)]) # 10 years
+    dfa_list.append(data_frame.loc[(data_frame['m']>-31) & (data_frame['m']<30)]) # 5 years
+    dfa_list.append(data_frame.loc[(data_frame['m']>-13) & (data_frame['m']<12)]) # 12 months
+    dfa_list.append(data_frame.loc[(data_frame['m']>-10) & (data_frame['m']<9)]) # 9 months
+    dfa_list.append(data_frame.loc[(data_frame['m']>-4) & (data_frame['m']<3)]) # 3 months
+    dfa_list.append(data_frame.loc[(data_frame['m']>-67) & (data_frame['m']<30)]) # 8 years
 
 
     reg1 = smf.ols(formula =
@@ -274,33 +254,57 @@ def reg_abortion():
             'log_ive ~ post + m + post*m + m2 + post*m2 + days + feb + mar + apr + mai + jun + jul + aug + sep + oct + nov + dec', data=dfa_list[1]).fit(cov_type='HC1')
 
     reg_list_a = [reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8]
+ 
+    
+    return reg_list_a
+    
+    
 
+    
+# ************************************** REGRESSION OUTPUT - TABLE **********************************
+
+def table_reg_output(reg_output1, reg_output2):
+    
     # Make a table equivalent to Table 2 with coefficients and se for post variable
     print('\u2014'*110)
+    # header
     print('{:<12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'
           .format("", "RDD (1)", "RDD (2)", "RDD (3)", "RDD (4)", "RDD (5)", "DID (6)", "DID (7)", "DID (8)"))
     print('{:<12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'
           .format("", "10 years", "5 years", "12 months", "9 months", "3 months", "10 years", "7 years", "5 years"))
     print('\u2014'*110)
     
+    # REG OUTPUT 1
     print('{:<12s}'.format("Conceptions"), end="")
-    for i in range(len(reg_list_b)):
-        print ('{:>12.4f}'.format(reg_list_b[i].params.post), end="")
+    # coefficient estimate
+    for i in range(len(reg_output1)):
+        print ('{:>12.4f}'.format(reg_output1[i].params.post), end="")
+    # standard error
     print(" "*110)
     print('{:<12s}'.format(""), end="")
-    for j in range(len(reg_list_b)):
-        print ('{:>12.4f}'.format(reg_list_b[j].bse.post), end="")
+    for j in range(len(reg_output1)):
+        print ('{:>12.4f}'.format(reg_output1[j].bse.post), end="")
+    # p-value
+    print(" "*110)
+    print('{:<12s}'.format(""), end="")
+    for j in range(len(reg_output1)):
+        print ('\033[1m' '{:>12.4f}' '\033[0m'.format(reg_output1[j].pvalues.post), end="")
+    
+    # REG OUTPUT 2
     print(" "*110)
     print('{:<12s}'.format("Abortions"), end="")
-    for i in range(len(reg_list_a)):
-        print ('{:>12.4f}'.format(reg_list_a[i].params.post), end="")
+    # coefficient estimate
+    for i in range(len(reg_output2)):
+        print ('{:>12.4f}'.format(reg_output2[i].params.post), end="")
+    # standard error
     print(" "*110)
     print('{:<12s}'.format(""), end="")
-    for j in range(len(reg_list_a)):
-        print ('{:>12.4f}'.format(reg_list_a[j].bse.post), end="")
+    for j in range(len(reg_output2)):
+        print ('{:>12.4f}'.format(reg_output2[j].bse.post), end="")
+    # p-value
     print(" "*110)
     print('{:<12s}'.format(""), end="")
-    for j in range(len(reg_list_b)):
-        print ('\033[1m' '{:>12.4f}' '\033[0m'.format(reg_list_a[j].pvalues.post), end="")
+    for j in range(len(reg_output2)):
+        print ('\033[1m' '{:>12.4f}' '\033[0m'.format(reg_output2[j].pvalues.post), end="")
 
     
