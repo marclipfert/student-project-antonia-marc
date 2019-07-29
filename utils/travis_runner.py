@@ -4,6 +4,6 @@ import subprocess as sp
 
 if __name__ == '__main__':
 
-    notebook = 'student_project.ipynb'
+    notebook = 'student_project_Antonia_Marc.ipynb'
     cmd = ' jupyter nbconvert --execute {}  --ExecutePreprocessor.timeout=-1'.format(notebook)
     sp.check_call(cmd, shell=True)
