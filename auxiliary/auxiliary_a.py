@@ -292,6 +292,7 @@ def table_reg_output(reg_output1, reg_output2):
     
     # REG OUTPUT 2
     print(" "*110)
+    print(" "*110)
     print('{:<12s}'.format("Abortions"), end="")
     # coefficient estimate
     for i in range(len(reg_output2)):
@@ -306,5 +307,12 @@ def table_reg_output(reg_output1, reg_output2):
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output2)):
         print ('\033[1m' '{:>12.4f}' '\033[0m'.format(reg_output2[j].pvalues.post), end="")
+    
+    #footer
+    print('\u2014'*110)
+    print("Notes: The dependent variables are the natural logarithm of the monthly number of conceptions and abortions,")
+    print("respectively. For each of them, the coefficient of the binary treatment indicator variable is reported in the")
+    print("first line. Standard errors are always displayed in the second line. The p-values are printed in bold font.")
+        
 
     
