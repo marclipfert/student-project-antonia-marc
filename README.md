@@ -13,9 +13,6 @@ Our project aims at replicating the main results of the following article:
 González , L. (2013): The Effect of a Universal Child Benefit on Conceptions, Abortions, and Early Maternal Labor Supply. American Economic Journal: Economic Policy 5(3): 160–188. [(link to the paper)](https://www.aeaweb.org/articles?id=10.1257/pol.5.3.160)
 
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/HumanCapitalAnalysis/student-project-antonia-marc/master?filepath=student_project_Antonia-Marc.ipynb)
-
-
 Done:
 - replicating main results
 - applying the research design to the abolishment of the policy and studying the effect on conceptions
