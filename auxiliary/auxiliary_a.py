@@ -266,6 +266,7 @@ def reg_abortion(data_frame):
 def table_reg_output(reg_output1, reg_output2):
     
     # Make a table equivalent to Table 2 with coefficients and se for post variable
+    print('Table 3 - Fertility Results (Conceptions and Abortions)')
     print('\u2014'*110)
     # header
     print('{:<12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'
@@ -283,12 +284,12 @@ def table_reg_output(reg_output1, reg_output2):
     print(" "*110)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output1)):
-        print ('{:>12.4f}'.format(reg_output1[j].bse.post), end="")
+        print ('\33[34m''{:>12.4f}' '\33[0m'.format(reg_output1[j].bse.post), end="")
     # p-value
     print(" "*110)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output1)):
-        print ('\033[1m' '{:>12.4f}' '\033[0m'.format(reg_output1[j].pvalues.post), end="")
+        print ('\33[31m' '{:>12.4f}' '\33[0m'.format(reg_output1[j].pvalues.post), end="")
     
     # REG OUTPUT 2
     print(" "*110)
@@ -301,18 +302,24 @@ def table_reg_output(reg_output1, reg_output2):
     print(" "*110)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output2)):
-        print ('{:>12.4f}'.format(reg_output2[j].bse.post), end="")
+        print ('\33[34m''{:>12.4f}' '\33[0m'.format(reg_output2[j].bse.post), end="")
     # p-value
     print(" "*110)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output2)):
-        print ('\033[1m' '{:>12.4f}' '\033[0m'.format(reg_output2[j].pvalues.post), end="")
+        print ('\33[31m' '{:>12.4f}' '\33[0m'.format(reg_output2[j].pvalues.post), end="")
     
     #footer
+    print(" "*110)
     print('\u2014'*110)
     print("Notes: The dependent variables are the natural logarithm of the monthly number of conceptions and abortions,")
-    print("respectively. For each of them, the coefficient of the binary treatment indicator variable is reported in the")
-    print("first line. Standard errors are always displayed in the second line. The p-values are printed in bold font.")
+    print("respectively. For each of them, the coefficient, standard error, and p-value of the binary treatment indicator")
+    print("variable is reported.")
+    print ('- coefficient estimates')
+    print ('\33[34m' '- standard errors' '\33[0m')
+    print ('\33[31m' '- p-values' '\33[0m')
+    
+    
         
 
     
