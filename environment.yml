@@ -2,7 +2,7 @@ name: student_project_Antonia_Marc
 
 dependencies:
 - numpy
-- pandas
+- patsy
 - pandas 
 - jupyterlab
 - matplotlib
