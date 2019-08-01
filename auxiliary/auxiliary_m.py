@@ -423,3 +423,244 @@ def table_abolishment(reg_list_abolishment):
     print ('\33[31m' '- p-values' '\33[0m')
     
    
+#******************************************************************************
+#********************** Placebo Tests *****************************************
+#******************************************************************************
+
+###############################################################################
+# July as Threshold
+    
+# preparing data set:
+def preparation_placebo_july(df):
+    df_births3 = df
+    
+    # Create month of birth variable
+    df_births3['m'] = np.nan
+
+    x = 0
+    while x < 18:
+        df_births3.loc[df_births3['year'] == 2017 - x, 'm'] = df_births3['mesp'] + 5 - (x*12)
+        x += 1
+    
+    df_births3.loc[df_births3['year']==2016, ['year', 'mesp', 'm']]
+
+    # Create month of conception (sophisticated version)
+
+    df_births3['mc'] = np.where((df_births3['prem'] == 2) |
+        # if premature baby subtract only 8 months to get month of conception
+        ((0 < df_births3['semanas']) & (df_births3['semanas'] < 39)), df_births3['m'] - 8,
+        # otherwise if baby was born only after 43 months --> -10
+        np.where(df_births3['semanas'] > 43, df_births3['m'] - 10,
+        # otherwise  - 9
+        df_births3['m'] - 9))
+
+    df_births3['n'] = 1
+    df_placebo_july = df_births3.groupby('mc', as_index = False)['n'].count()
+    
+    # Create calender month of conception:
+
+    df_placebo_july['month'] = 0
+
+    for i in range(3):
+        df_placebo_july.loc[df_placebo_july['mc'] == 0 + 12*i, 'month'] = 7
+        df_placebo_july.loc[df_placebo_july['mc'] == 1 + 12*i, 'month'] = 8
+        df_placebo_july.loc[df_placebo_july['mc'] == 2 + 12*i, 'month'] = 9
+        df_placebo_july.loc[df_placebo_july['mc'] == 3 + 12*i, 'month'] = 10
+        df_placebo_july.loc[df_placebo_july['mc'] == 4 + 12*i, 'month'] = 11
+        df_placebo_july.loc[df_placebo_july['mc'] == 5 + 12*i, 'month'] = 12
+        df_placebo_july.loc[df_placebo_july['mc'] == 6 + 12*i, 'month'] = 1
+        df_placebo_july.loc[df_placebo_july['mc'] == 7 + 12*i, 'month'] = 2
+        df_placebo_july.loc[df_placebo_july['mc'] == 8 + 12*i, 'month'] = 3
+        df_placebo_july.loc[df_placebo_july['mc'] == 9 + 12*i, 'month'] = 4
+        df_placebo_july.loc[df_placebo_july['mc'] == 10 + 12*i, 'month'] = 5
+        df_placebo_july.loc[df_placebo_july['mc'] == 11 + 12*i, 'month'] = 6
+       
+    for i in range(18):
+        df_placebo_july.loc[df_placebo_july['mc'] == -1 - 12*i, 'month'] = 6
+        df_placebo_july.loc[df_placebo_july['mc'] == -2 - 12*i, 'month'] = 5
+        df_placebo_july.loc[df_placebo_july['mc'] == -3 - 12*i, 'month'] = 4
+        df_placebo_july.loc[df_placebo_july['mc'] == -4 - 12*i, 'month'] = 3
+        df_placebo_july.loc[df_placebo_july['mc'] == -5 - 12*i, 'month'] = 2
+        df_placebo_july.loc[df_placebo_july['mc'] == -6 - 12*i, 'month'] = 1
+        df_placebo_july.loc[df_placebo_july['mc'] == -7 - 12*i, 'month'] = 12
+        df_placebo_july.loc[df_placebo_july['mc'] == -8 - 12*i, 'month'] = 11
+        df_placebo_july.loc[df_placebo_july['mc'] == -9 - 12*i, 'month'] = 10
+        df_placebo_july.loc[df_placebo_july['mc'] == -10 - 12*i, 'month'] = 9
+        df_placebo_july.loc[df_placebo_july['mc'] == -11 - 12*i, 'month'] = 8
+        df_placebo_july.loc[df_placebo_july['mc'] == -12 - 12*i, 'month'] = 7
+
+    # generate July indicator
+    df_placebo_july['july'] = np.where(df_placebo_july['month'] == 7, 1, 0)
+
+    # number of days in a month
+    df_placebo_july['days'] = np.where((df_placebo_july['mc'] == -5) | (df_placebo_july['mc'] == -53) |
+        (df_placebo_july['mc'] == -101) | (df_placebo_july['mc'] == -149) | (df_placebo_july['mc'] == -197), 29,
+        # for all other feburarys
+        np.where(df_placebo_july['month'] == 2, 28,
+        # for April, June, September, November
+        np.where((df_placebo_july['month'] == 4) | (df_placebo_july['month'] == 6) |
+                (df_placebo_july['month'] == 9) | (df_placebo_july['month'] == 11), 30, 31)))
+
+    # indicator for placebo treatment group (post-policy)
+    df_placebo_july['post'] = np.where(df_placebo_july['mc'] >= 0, 1, 0)
+
+    # quadratic and cubic mc:
+    df_placebo_july['mc2'] = df_placebo_july['mc']*df_placebo_july['mc']
+    df_placebo_july['mc3'] = df_placebo_july['mc']*df_placebo_july['mc']*df_placebo_july['mc']
+
+    
+    # natural log of number of obs n
+    df_placebo_july['ln'] = np.log(df_placebo_july['n']) 
+    
+    return df_placebo_july
+
+# regression output table for placebo test July:
+def table_placebo_july(reg_list_placebo_july):
+    # Make a table equivalent to Table 2 with coefficients and se for post variable
+    print('\u2014'*40)
+    print('{:<12s}{:>12s}{:>12s}'.format("", "RDD (1)", "RDD (2)"))
+    print('{:<12s}{:>12s}{:>12s}'.format("", "9 months", "3 months"))
+    print('\u2014'*40)
+    print('{:<12s}'.format("Conceptions"), end="")
+    for i in range(len(reg_list_placebo_july)):
+        print ('{:>12.4f}'.format(reg_list_placebo_july[i].params.post), end="")
+    print(" "*40)
+    print('{:<12s}'.format(""), end="")
+    for j in range(len(reg_list_placebo_july)):
+        print ('\33[34m' '{:>12.4f}' '\x1b[0m'.format(reg_list_placebo_july[j].bse.post), end="")
+    print(" "*40)
+    print('{:<12s}'.format(""), end="")
+    for j in range(len(reg_list_placebo_july)):
+        print ('\33[31m' '{:>12.4f}' '\x1b[0m'.format(reg_list_placebo_july[j].pvalues.post), end="")
+    
+    print(" "*40)
+    print('\u2014'*40)  
+    print("Notes: The dependent variable is the natural logarithm of the monthly number of conceptions.")
+    print("For each of the specifications, the coefficient, standard error and p-value of the binary treatment indicator")
+    print("variable are reported:")
+    print ('- coefficient estimates')
+    print ('\33[34m' '- standard errors' '\33[0m')
+    print ('\33[31m' '- p-values' '\33[0m')
+    
+    
+##############################################################################
+# May as threshold
+    
+# prepartion of the data set:
+    
+def preparation_placebo_may(df):
+    df_births4 = df
+    
+    # Create month of birth variable
+    df_births4['m'] = np.nan
+
+    x = 0
+    while x < 18:
+        df_births4.loc[df_births4['year'] == 2017 - x, 'm'] = df_births4['mesp'] + 7 - (x*12)
+        x += 1
+    
+    df_births4.loc[df_births4['year']==2016, ['year', 'mesp', 'm']]
+
+    # Create month of conception (sophisticated version)
+
+    df_births4['mc'] = np.where((df_births4['prem'] == 2) |
+        # if premature baby subtract only 8 months to get month of conception
+        ((0 < df_births4['semanas']) & (df_births4['semanas'] < 39)), df_births4['m'] - 8,
+        # otherwise if baby was born only after 43 months --> -10
+        np.where(df_births4['semanas'] > 43, df_births4['m'] - 10,
+        # otherwise  - 9
+        df_births4['m'] - 9))
+
+    df_births4['n'] = 1
+    df_placebo_may = df_births4.groupby('mc', as_index = False)['n'].count()
+    
+    # Create calender month of conception:
+
+    df_placebo_may['month'] = 0
+
+    for i in range(3):
+        df_placebo_may.loc[df_placebo_may['mc'] == 0 + 12*i, 'month'] = 5
+        df_placebo_may.loc[df_placebo_may['mc'] == 1 + 12*i, 'month'] = 6
+        df_placebo_may.loc[df_placebo_may['mc'] == 2 + 12*i, 'month'] = 7
+        df_placebo_may.loc[df_placebo_may['mc'] == 3 + 12*i, 'month'] = 8
+        df_placebo_may.loc[df_placebo_may['mc'] == 4 + 12*i, 'month'] = 9
+        df_placebo_may.loc[df_placebo_may['mc'] == 5 + 12*i, 'month'] = 10
+        df_placebo_may.loc[df_placebo_may['mc'] == 6 + 12*i, 'month'] = 11
+        df_placebo_may.loc[df_placebo_may['mc'] == 7 + 12*i, 'month'] = 12
+        df_placebo_may.loc[df_placebo_may['mc'] == 8 + 12*i, 'month'] = 1
+        df_placebo_may.loc[df_placebo_may['mc'] == 9 + 12*i, 'month'] = 2
+        df_placebo_may.loc[df_placebo_may['mc'] == 10 + 12*i, 'month'] = 3
+        df_placebo_may.loc[df_placebo_may['mc'] == 11 + 12*i, 'month'] = 4
+       
+    for i in range(18):
+        df_placebo_may.loc[df_placebo_may['mc'] == -1 - 12*i, 'month'] = 4
+        df_placebo_may.loc[df_placebo_may['mc'] == -2 - 12*i, 'month'] = 3
+        df_placebo_may.loc[df_placebo_may['mc'] == -3 - 12*i, 'month'] = 2
+        df_placebo_may.loc[df_placebo_may['mc'] == -4 - 12*i, 'month'] = 1
+        df_placebo_may.loc[df_placebo_may['mc'] == -5 - 12*i, 'month'] = 12
+        df_placebo_may.loc[df_placebo_may['mc'] == -6 - 12*i, 'month'] = 11
+        df_placebo_may.loc[df_placebo_may['mc'] == -7 - 12*i, 'month'] = 10
+        df_placebo_may.loc[df_placebo_may['mc'] == -8 - 12*i, 'month'] = 9
+        df_placebo_may.loc[df_placebo_may['mc'] == -9 - 12*i, 'month'] = 8
+        df_placebo_may.loc[df_placebo_may['mc'] == -10 - 12*i, 'month'] = 7
+        df_placebo_may.loc[df_placebo_may['mc'] == -11 - 12*i, 'month'] = 6
+        df_placebo_may.loc[df_placebo_may['mc'] == -12 - 12*i, 'month'] = 5
+
+    # generate May indicator
+    df_placebo_may['may'] = np.where(df_placebo_may['month'] == 5, 1, 0)
+
+
+
+    # number of days in a month
+    df_placebo_may['days'] = np.where((df_placebo_may['mc'] == -3) | (df_placebo_may['mc'] == -51) |
+        (df_placebo_may['mc'] == -99) | (df_placebo_may['mc'] == -147) | (df_placebo_may['mc'] == -195), 29,
+        # for all other feburarys
+        np.where(df_placebo_may['month'] == 2, 28,
+        # for April, June, September, November
+        np.where((df_placebo_may['month'] == 4) | (df_placebo_may['month'] == 6) |
+                (df_placebo_may['month'] == 9) | (df_placebo_may['month'] == 11), 30, 31)))
+
+
+    # indicator for treatment group (post-policy conception), i.e. after June 2007
+    df_placebo_may['post'] = np.where(df_placebo_may['mc'] >= 0, 1, 0)
+
+    # quadratic and cubic mc:
+    df_placebo_may['mc2'] = df_placebo_may['mc']*df_placebo_may['mc']
+    df_placebo_may['mc3'] = df_placebo_may['mc']*df_placebo_may['mc']*df_placebo_may['mc']
+
+    df_placebo_may[['mc','mc2','mc3']].head()
+
+    # natural log of number of obs n
+    df_placebo_may['ln'] = np.log(df_placebo_may['n']) 
+    
+    return df_placebo_may
+
+    
+# regression output table for placebo test May:
+  
+def table_placebo_may(reg_list_p2):
+
+    print('\u2014'*40)
+    print('{:<12s}{:>12s}{:>12s}'.format("", "RDD (1)", "RDD (2)"))
+    print('{:<12s}{:>12s}{:>12s}'.format("", "9 months", "3 months"))
+    print('\u2014'*40)
+    print('{:<12s}'.format("Conceptions"), end="")
+    for i in range(len(reg_list_p2)):
+        print ('{:>12.4f}'.format(reg_list_p2[i].params.post), end="")
+    print(" "*40)
+    print('{:<12s}'.format(""), end="")
+    for j in range(len(reg_list_p2)):
+        print ('\33[34m' '{:>12.4f}' '\x1b[0m'.format(reg_list_p2[j].bse.post), end="")
+    print(" "*40)
+    print('{:<12s}'.format(""), end="")
+    for j in range(len(reg_list_p2)):
+        print ('\33[31m' '{:>12.4f}' '\x1b[0m'.format(reg_list_p2[j].pvalues.post), end="")
+    
+    print(" "*40)
+    print('\u2014'*40)  
+    print("Notes: The dependent variable is the natural logarithm of the monthly number of conceptions.")
+    print("For each of the specifications, the coefficient, standard error and p-value of the binary treatment indicator")
+    print("variable are reported:")
+    print ('- coefficient estimates')
+    print ('\33[34m' '- standard errors' '\33[0m')
+    print ('\33[31m' '- p-values' '\33[0m')

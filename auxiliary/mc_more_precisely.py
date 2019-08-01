@@ -128,16 +128,17 @@ def table_reg_output_2(reg_output1, reg_output2):
         print ('{:>12.4f}'.format(reg_output1[i].params.post), end="")
     # standard error
     print(" "*110)
-    print('{:<12s}'.format(""), end="")
+    print( '{:<12s}'.format(""), end="")
     for j in range(len(reg_output1)):
-        print ('{:>12.4f}'.format(reg_output1[j].bse.post), end="")
+        print ('\33[34m' '{:>12.4f}' '\33[0m'.format(reg_output1[j].bse.post), end="")
     # p-value
     print(" "*110)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output1)):
-        print ('\033[1m' '{:>12.4f}' '\033[0m'.format(reg_output1[j].pvalues.post), end="")
+        print ('\33[31m' '{:>12.4f}' '\033[0m'.format(reg_output1[j].pvalues.post), end="")
     
     # REG OUTPUT 2
+    print(" "*110)
     print(" "*110)
     print('{:<12s}'.format("mc old"), end="")
     # coefficient estimate
@@ -147,12 +148,21 @@ def table_reg_output_2(reg_output1, reg_output2):
     print(" "*110)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output2)):
-        print ('{:>12.4f}'.format(reg_output2[j].bse.post), end="")
+        print ('\33[34m' '{:>12.4f}' '\33[0m'.format(reg_output2[j].bse.post), end="")
     # p-value
     print(" "*110)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output2)):
-        print ('\033[1m' '{:>12.4f}' '\033[0m'.format(reg_output2[j].pvalues.post), end="")
+        print ('\33[31m' '{:>12.4f}' '\033[0m'.format(reg_output2[j].pvalues.post), end="")
+    #footer
+    print(" "*110)
+    print('\u2014'*110)    
+    print("Notes: The dependent variable is always the natural logarithm of the monthly number of conceptions.")
+    print("For each of the specifications, the coefficient, standard error and p-value of the binary treatment indicator")
+    print("variable are reported:")
+    print ('- coefficient estimates')
+    print ('\33[34m' '- standard errors' '\33[0m')
+    print ('\33[31m' '- p-values' '\33[0m')
 
     
  
