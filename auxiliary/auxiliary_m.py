@@ -96,29 +96,48 @@ def preparation_hbs():
 
     return df_hbs
 
+# function creating significance stars:
+def star_function(p):
+    if(round(p,10) <= 0.01):
+        star = "***"
+    elif round(p,10) <= 0.05:
+        star = "**"
+    elif round(p,10) <= 0.1:
+        star = "*"
+    else:
+        star = " "
+    
+    return star
+
 # printing regression output table for household expenditures:
     
 def table_expenditures(dep_vars,dep_vars_name,reg_spec1,reg_spec2,reg_spec3,reg_spec4,reg_spec5,reg_spec6,reg_spec7):
+    
     print('\u2014'*103)
-    print('{:<19s}{:>11s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'.format("", "RDD 9m", \
-      "RDD 6m", "RDD 4m", "RDD 3m", "RDD 2m", "RDD 2m", "DiD 1"))
-    print('{:<19s}{:>11s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'.format("", "(1)", \
-      "(2)", "(3)", "(4)", "(5)", "(6)", "(7)"))
+    print('{:<19s}{:>11s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}'.format("",\
+          "RDD 9m", "", "RDD 6m", "", "RDD 4m", "", "RDD 3m", "", "RDD 2m", "", "RDD 2m", "", "DiD 1", ""))
+    print('{:<19s}{:>11s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}'.format("", \
+          "(1)", "", "(2)", "", "(3)", "", "(4)", "", "(5)", "", "(6)", "", "(7)", ""))
     print('\u2014'*103)
     x=0
     while x < len(dep_vars):
-        print('{:<19s}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}'.format(\
-          dep_vars_name[x], reg_spec1[x].params.post, reg_spec2[x].params.post, \
-          reg_spec3[x].params.post, reg_spec4[x].params.post, reg_spec5[x].params.post, \
-          reg_spec6[x].params.post, reg_spec7[x].params.post))
-        print('\33[34m' '{:<19s}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}' '\33[0m'.format("", \
-          reg_spec1[x].bse.post, reg_spec2[x].bse.post, reg_spec3[x].bse.post, \
-          reg_spec4[x].bse.post, reg_spec5[x].bse.post, reg_spec6[x].bse.post, \
-          reg_spec7[x].bse.post ))
-        print('\33[31m' '{:<19s}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}' '\33[0m'.format("", \
-          reg_spec1[x].pvalues.post, reg_spec2[x].pvalues.post, reg_spec3[x].pvalues.post, \
-          reg_spec4[x].pvalues.post, reg_spec5[x].pvalues.post, reg_spec6[x].pvalues.post, \
-          reg_spec7[x].pvalues.post ))
+        print('{:<19s}{:>12.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}'.format(\
+          dep_vars_name[x], 
+          reg_spec1[x].params.post, star_function(reg_spec1[x].pvalues.post), \
+          reg_spec2[x].params.post, star_function(reg_spec2[x].pvalues.post), \
+          reg_spec3[x].params.post, star_function(reg_spec3[x].pvalues.post), \
+          reg_spec4[x].params.post, star_function(reg_spec4[x].pvalues.post), \
+          reg_spec5[x].params.post, star_function(reg_spec5[x].pvalues.post), \
+          reg_spec6[x].params.post, star_function(reg_spec6[x].pvalues.post), \
+          reg_spec7[x].params.post, star_function(reg_spec7[x].pvalues.post)))
+        print('\33[34m' '{:<19s}{:>12.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}' '\33[0m'.format("", \
+          reg_spec1[x].bse.post, "", reg_spec2[x].bse.post, "", reg_spec3[x].bse.post, "", \
+          reg_spec4[x].bse.post, "", reg_spec5[x].bse.post, "", reg_spec6[x].bse.post, "", \
+          reg_spec7[x].bse.post, "" ))
+        print('\33[31m' '{:<19s}{:>12.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}' '\33[0m'.format("", \
+          reg_spec1[x].pvalues.post, "", reg_spec2[x].pvalues.post, "", reg_spec3[x].pvalues.post, "", \
+          reg_spec4[x].pvalues.post, "", reg_spec5[x].pvalues.post, "", reg_spec6[x].pvalues.post, "", \
+          reg_spec7[x].pvalues.post, ""))
         print(""*103)
   
         x += 1
@@ -134,25 +153,30 @@ def table_expenditures(dep_vars,dep_vars_name,reg_spec1,reg_spec2,reg_spec3,reg_
     
 def table_childcare(dep_vars_childcare,dep_vars_childcare_name,reg_spec1_childcare,reg_spec2_childcare,reg_spec3_childcare,reg_spec4_childcare,reg_spec5_childcare,reg_spec6_childcare,reg_spec7_childcare):  
     print('\u2014'*109)
-    print('{:<24s}{:>11s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'.format("", "RDD 9m", \
-          "RDD 6m", "RDD 4m", "RDD 3m", "RDD 2m", "RDD 2m", "DiD 1"))
-    print('{:<24s}{:>11s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'.format("", "(1)", \
-          "(2)", "(3)", "(4)", "(5)", "(6)", "(7)*"))
+    print('{:<24s}{:>11s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}'.format("", \
+          "RDD 9m", "","RDD 6m", "", "RDD 4m", "", "RDD 3m", "", "RDD 2m", "", "RDD 2m", "", "DiD 1", ""))
+    print('{:<24s}{:>11s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}'.format("", \
+          "(1)", "", "(2)", "", "(3)", "", "(4)", "", "(5)", "", "(6)", "", "(7)*", ""))
     print('\u2014'*109)
     x=0
     while x < len(dep_vars_childcare):
-        print('{:<24s}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}'.format(\
-              dep_vars_childcare_name[x], reg_spec1_childcare[x].params.post, reg_spec2_childcare[x].params.post, \
-              reg_spec3_childcare[x].params.post, reg_spec4_childcare[x].params.post, reg_spec5_childcare[x].params.post, \
-              reg_spec6_childcare[x].params.post, reg_spec7_childcare[x].params.post))
-        print('\33[34m' '{:<24s}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}' '\33[0m'.format("", \
-              reg_spec1_childcare[x].bse.post, reg_spec2_childcare[x].bse.post, reg_spec3_childcare[x].bse.post, \
-              reg_spec4_childcare[x].bse.post, reg_spec5_childcare[x].bse.post, reg_spec6_childcare[x].bse.post, \
-              reg_spec7_childcare[x].bse.post ))
-        print('\33[31m' '{:<24s}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}' '\33[0m'.format("", \
-                    reg_spec1_childcare[x].pvalues.post, reg_spec2_childcare[x].pvalues.post, reg_spec3_childcare[x].pvalues.post, \
-                    reg_spec4_childcare[x].pvalues.post, reg_spec5_childcare[x].pvalues.post, reg_spec6_childcare[x].pvalues.post, \
-                    reg_spec7_childcare[x].pvalues.post ))
+        print('{:<24s}{:>12.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}'.format(\
+              dep_vars_childcare_name[x], \
+              reg_spec1_childcare[x].params.post, star_function(reg_spec1_childcare[x].pvalues.post), \
+              reg_spec2_childcare[x].params.post, star_function(reg_spec2_childcare[x].pvalues.post), \
+              reg_spec3_childcare[x].params.post, star_function(reg_spec3_childcare[x].pvalues.post), \
+              reg_spec4_childcare[x].params.post, star_function(reg_spec4_childcare[x].pvalues.post), \
+              reg_spec5_childcare[x].params.post, star_function(reg_spec5_childcare[x].pvalues.post), \
+              reg_spec6_childcare[x].params.post, star_function(reg_spec6_childcare[x].pvalues.post), \
+              reg_spec7_childcare[x].params.post, star_function(reg_spec7_childcare[x].pvalues.post) ))
+        print('\33[34m' '{:<24s}{:>12.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}' '\33[0m'.format("", \
+              reg_spec1_childcare[x].bse.post, "", reg_spec2_childcare[x].bse.post, "", reg_spec3_childcare[x].bse.post, "", \
+              reg_spec4_childcare[x].bse.post, "", reg_spec5_childcare[x].bse.post, "", reg_spec6_childcare[x].bse.post, "", \
+              reg_spec7_childcare[x].bse.post, "" ))
+        print('\33[31m' '{:<24s}{:>12.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}' '\33[0m'.format("", \
+                    reg_spec1_childcare[x].pvalues.post, "", reg_spec2_childcare[x].pvalues.post, "", reg_spec3_childcare[x].pvalues.post, "", \
+                    reg_spec4_childcare[x].pvalues.post, "", reg_spec5_childcare[x].pvalues.post, "", reg_spec6_childcare[x].pvalues.post, "",\
+                    reg_spec7_childcare[x].pvalues.post, "" ))
         print(""*109)
         x += 1
     print('\u2014'*109)
@@ -237,29 +261,35 @@ def preparation_lfs():
 #printing regression output for labor supply:
     
 def table_LS(dep_vars_LS, dep_vars_LS_name, reg_spec1_LS, reg_spec2_LS, reg_spec3_LS, reg_spec4_LS, reg_spec5_LS, reg_spec6_LS, reg_spec7_LS, reg_spec8_LS):
-    print('\u2014'*116)
-    print('{:<20s}{:>11s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'.format("", "RDD 9m", \
-          "RDD 6m", "RDD 4m", "RDD 3m", "RDD 2m", "RDD 2m", "DiD 1", "DID 1*"))
-    print('{:<20s}{:>11s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'.format("", "(1)", \
-          "(2)", "(3)", "(4)", "(5)", "(6)", "(7)", "(8)"))
-    print('\u2014'*116)
+    print('\u2014'*114)
+    print('{:<18s}{:>11s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}'.format("", \
+          "RDD 9m", "", "RDD 6m", "", "RDD 4m", "", "RDD 3m", "", "RDD 2m", "", "RDD 2m", "", "DiD 1", "", "DID 1*", ""))
+    print('{:<18s}{:>11s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}'.format("", \
+          "(1)", "", "(2)", "", "(3)", "", "(4)", "", "(5)", "", "(6)", "", "(7)", "", "(8)", ""))
+    print('\u2014'*114)
     x=0
     while x < len(dep_vars_LS):
-        print('{:<20s}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}'.format(\
-              dep_vars_LS_name[x], reg_spec1_LS[x].params.post, reg_spec2_LS[x].params.post, \
-              reg_spec3_LS[x].params.post, reg_spec4_LS[x].params.post, reg_spec5_LS[x].params.post, \
-              reg_spec6_LS[x].params.post, reg_spec7_LS[x].params.post, reg_spec8_LS[x].params.post))
-        print('\33[34m' '{:<20s}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}' '\33[0m'.format("", \
-              reg_spec1_LS[x].bse.post, reg_spec2_LS[x].bse.post, reg_spec3_LS[x].bse.post, \
-              reg_spec4_LS[x].bse.post, reg_spec5_LS[x].bse.post, reg_spec6_LS[x].bse.post, \
-              reg_spec7_LS[x].bse.post, reg_spec8_LS[x].bse.post ))
-        print('\33[31m' '{:<20s}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}{:>12.3f}' '\33[0m'.format("", \
-              reg_spec1_LS[x].pvalues.post, reg_spec2_LS[x].pvalues.post, reg_spec3_LS[x].pvalues.post, \
-              reg_spec4_LS[x].pvalues.post, reg_spec5_LS[x].pvalues.post, reg_spec6_LS[x].pvalues.post, \
-              reg_spec7_LS[x].pvalues.post, reg_spec8_LS[x].pvalues.post ))
-        print(""*116)
+        print('{:<18s}{:>12.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}'.format(\
+              dep_vars_LS_name[x], \
+              reg_spec1_LS[x].params.post, star_function( reg_spec1_LS[x].pvalues.post), \
+              reg_spec2_LS[x].params.post, star_function( reg_spec2_LS[x].pvalues.post), \
+              reg_spec3_LS[x].params.post, star_function( reg_spec3_LS[x].pvalues.post), \
+              reg_spec4_LS[x].params.post, star_function( reg_spec4_LS[x].pvalues.post), \
+              reg_spec5_LS[x].params.post, star_function( reg_spec5_LS[x].pvalues.post), \
+              reg_spec6_LS[x].params.post, star_function( reg_spec6_LS[x].pvalues.post), \
+              reg_spec7_LS[x].params.post, star_function( reg_spec7_LS[x].pvalues.post), \
+              reg_spec8_LS[x].params.post, star_function( reg_spec8_LS[x].pvalues.post)  ))
+        print('\33[34m' '{:<18s}{:>12.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}' '\33[0m'.format("", \
+              reg_spec1_LS[x].bse.post, "", reg_spec2_LS[x].bse.post, "", reg_spec3_LS[x].bse.post, "", \
+              reg_spec4_LS[x].bse.post, "", reg_spec5_LS[x].bse.post, "", reg_spec6_LS[x].bse.post, "", \
+              reg_spec7_LS[x].bse.post, "", reg_spec8_LS[x].bse.post, "" ))
+        print('\33[31m' '{:<18s}{:>12.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}' '\33[0m'.format("", \
+              reg_spec1_LS[x].pvalues.post, "", reg_spec2_LS[x].pvalues.post, "", reg_spec3_LS[x].pvalues.post, "", \
+              reg_spec4_LS[x].pvalues.post, "", reg_spec5_LS[x].pvalues.post, "", reg_spec6_LS[x].pvalues.post, "", \
+              reg_spec7_LS[x].pvalues.post, "",  reg_spec8_LS[x].pvalues.post, "" ))
+        print(""*114)
         x += 1
-    print('\u2014'*116)
+    print('\u2014'*114)
     print("Notes: For each of the dependent variables, the coefficient, standard error and p-value of the binary")
     print("treatment indicator variable are reported:")
     print ('- coefficient estimates')
@@ -395,26 +425,26 @@ def preparation_abolishment(df):
 # regression output table for the abolishment of the policy:
     
 def table_abolishment(reg_list_abolishment):
-    print('\u2014'*72)
-    print('{:<12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'
-          .format("", "RDD (1)", "RDD (2)", "RDD (3)", "RDD (4)", "DID (5)"))
-    print('{:<12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'
-          .format("", "5 years", "12 months", "9 months", "3 months", "5 years"))
-    print('\u2014'*72)
+    print('\u2014'*87)
+    print('{:<12s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", \
+          "RDD (1)", "", "RDD (2)", "", "RDD (3)", "", "RDD (4)", "", "DID (5)", ""))
+    print('{:<12s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", \
+          "5 years", "", "12 months", "", "9 months", "", "3 months", "", "5 years", ""))
+    print('\u2014'*87)
     print('{:<12s}'.format("Conceptions"), end="")
     for i in range(len(reg_list_abolishment)):
-        print ('{:>12.4f}'.format(reg_list_abolishment[i].params.post), end="")
-    print(" "*72)
+        print ('{:>12.4f}{:<3s}'.format(reg_list_abolishment[i].params.post, star_function(reg_list_abolishment[i].pvalues.post)), end="")
+    print(" "*87)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_list_abolishment)):
-        print ('\33[34m' '{:>12.4f}' '\33[0m'.format(reg_list_abolishment[j].bse.post), end="")
-    print(" "*72)
+        print ('\33[34m' '{:>12.4f}{:<3s}' '\33[0m'.format(reg_list_abolishment[j].bse.post,""), end="")
+    print(" "*87)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_list_abolishment)):
-        print ('\33[31m' '{:>12.4f}' '\33[0m'.format(reg_list_abolishment[j].pvalues.post), end="")
+        print ('\33[31m' '{:>12.4f}{:<3s}' '\33[0m'.format(reg_list_abolishment[j].pvalues.post, ""), end="")
     
-    print(" "*72)
-    print('\u2014'*72)
+    print(" "*87)
+    print('\u2014'*87)
     print("Notes: The dependent variable is the natural logarithm of the monthly number of conceptions.")
     print("For each of the specifications, the coefficient, standard error and p-value of the binary treatment indicator")
     print("variable are reported:")
@@ -516,22 +546,22 @@ def preparation_placebo_july(df):
 
 # regression output table for placebo test July:
 def table_placebo_july(reg_list_placebo_july):
-    # Make a table equivalent to Table 2 with coefficients and se for post variable
+    
     print('\u2014'*40)
-    print('{:<12s}{:>12s}{:>12s}'.format("", "RDD (1)", "RDD (2)"))
-    print('{:<12s}{:>12s}{:>12s}'.format("", "9 months", "3 months"))
+    print('{:<12s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", "RDD (1)", "", "RDD (2)", ""))
+    print('{:<12s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", "9 months", "", "3 months", ""))
     print('\u2014'*40)
     print('{:<12s}'.format("Conceptions"), end="")
     for i in range(len(reg_list_placebo_july)):
-        print ('{:>12.4f}'.format(reg_list_placebo_july[i].params.post), end="")
+        print ('{:>12.4f}{:<3s}'.format(reg_list_placebo_july[i].params.post, star_function(reg_list_placebo_july[i].pvalues.post)), end="")
     print(" "*40)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_list_placebo_july)):
-        print ('\33[34m' '{:>12.4f}' '\x1b[0m'.format(reg_list_placebo_july[j].bse.post), end="")
+        print ('\33[34m' '{:>12.4f}{:<3s}' '\x1b[0m'.format(reg_list_placebo_july[j].bse.post, ""), end="")
     print(" "*40)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_list_placebo_july)):
-        print ('\33[31m' '{:>12.4f}' '\x1b[0m'.format(reg_list_placebo_july[j].pvalues.post), end="")
+        print ('\33[31m' '{:>12.4f}{:<3s}' '\x1b[0m'.format(reg_list_placebo_july[j].pvalues.post, ""), end="")
     
     print(" "*40)
     print('\u2014'*40)  
@@ -640,24 +670,24 @@ def preparation_placebo_may(df):
   
 def table_placebo_may(reg_list_p2):
 
-    print('\u2014'*40)
-    print('{:<12s}{:>12s}{:>12s}'.format("", "RDD (1)", "RDD (2)"))
-    print('{:<12s}{:>12s}{:>12s}'.format("", "9 months", "3 months"))
-    print('\u2014'*40)
+    print('\u2014'*43)
+    print('{:<12s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", "RDD (1)", "", "RDD (2)", ""))
+    print('{:<12s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", "9 months", "", "3 months", ""))
+    print('\u2014'*43)
     print('{:<12s}'.format("Conceptions"), end="")
     for i in range(len(reg_list_p2)):
-        print ('{:>12.4f}'.format(reg_list_p2[i].params.post), end="")
-    print(" "*40)
+        print ('{:>12.4f}{:<3s}'.format(reg_list_p2[i].params.post, star_function(reg_list_p2[i].pvalues.post)), end="")
+    print(" "*43)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_list_p2)):
-        print ('\33[34m' '{:>12.4f}' '\x1b[0m'.format(reg_list_p2[j].bse.post), end="")
-    print(" "*40)
+        print ('\33[34m' '{:>12.4f}{:<3s}' '\x1b[0m'.format(reg_list_p2[j].bse.post, ""), end="")
+    print(" "*43)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_list_p2)):
-        print ('\33[31m' '{:>12.4f}' '\x1b[0m'.format(reg_list_p2[j].pvalues.post), end="")
+        print ('\33[31m' '{:>12.4f}{:<3s}' '\x1b[0m'.format(reg_list_p2[j].pvalues.post, ""), end="")
     
-    print(" "*40)
-    print('\u2014'*40)  
+    print(" "*43)
+    print('\u2014'*43)  
     print("Notes: The dependent variable is the natural logarithm of the monthly number of conceptions.")
     print("For each of the specifications, the coefficient, standard error and p-value of the binary treatment indicator")
     print("variable are reported:")

@@ -263,55 +263,71 @@ def reg_abortion(data_frame):
     
 # ************************************** REGRESSION OUTPUT - TABLE **********************************
 
+
+# function creating significance stars:
+def star_function(p):
+    if(round(p,10) <= 0.01):
+        star = "***"
+    elif round(p,10) <= 0.05:
+        star = "**"
+    elif round(p,10) <= 0.1:
+        star = "*"
+    else:
+        star = " "
+    
+    return star
+
 def table_reg_output(reg_output1, reg_output2):
     
     # Make a table equivalent to Table 2 with coefficients and se for post variable
     print('Table 3 - Fertility Results (Conceptions and Abortions)')
-    print('\u2014'*110)
+    print('\u2014'*116)
     # header
-    print('{:<12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'
-          .format("", "RDD (1)", "RDD (2)", "RDD (3)", "RDD (4)", "RDD (5)", "DID (6)", "DID (7)", "DID (8)"))
-    print('{:<12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'
-          .format("", "10 years", "5 years", "12 months", "9 months", "3 months", "10 years", "7 years", "5 years"))
-    print('\u2014'*110)
+    print('{:<12s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}'
+          .format("", "RDD (1)", "", "RDD (2)", "", "RDD (3)", "", "RDD (4)", "", "RDD (5)", "", "DID (6)", "", \
+                  "DID (7)", "", "DID (8)", ""))
+    print('{:<12s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}'
+          .format("", "10 years", "", "5 years", "", "12 months", "", "9 months", "", "3 months", "", "10 years", "", \
+                  "7 years", "", "5 years", ""))
+    print('\u2014'*116)
     
     # REG OUTPUT 1
     print('{:<12s}'.format("Conceptions"), end="")
     # coefficient estimate
     for i in range(len(reg_output1)):
-        print ('{:>12.4f}'.format(reg_output1[i].params.post), end="")
+        print ('{:>10.4f}{:<3s}'.format(reg_output1[i].params.post, star_function(reg_output1[i].pvalues.post)), end="")
     # standard error
-    print(" "*110)
+    print(" "*116)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output1)):
-        print ('\33[34m''{:>12.4f}' '\33[0m'.format(reg_output1[j].bse.post), end="")
+        print ('\33[34m''{:>10.4f}{:<3s}' '\33[0m'.format(reg_output1[j].bse.post, ""), end="")
     # p-value
-    print(" "*110)
+    print(" "*116)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output1)):
-        print ('\33[31m' '{:>12.4f}' '\33[0m'.format(reg_output1[j].pvalues.post), end="")
+        print ('\33[31m' '{:>10.4f}{:<3s}' '\33[0m'.format(reg_output1[j].pvalues.post, ""), end="")
     
     # REG OUTPUT 2
-    print(" "*110)
-    print(" "*110)
+    print(" "*116)
+    print(" "*116)
     print('{:<12s}'.format("Abortions"), end="")
     # coefficient estimate
     for i in range(len(reg_output2)):
-        print ('{:>12.4f}'.format(reg_output2[i].params.post), end="")
+        print ('{:>10.4f}{:<3s}'.format(reg_output2[i].params.post, star_function(reg_output2[i].pvalues.post)), end="")
     # standard error
-    print(" "*110)
+    print(" "*116)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output2)):
-        print ('\33[34m''{:>12.4f}' '\33[0m'.format(reg_output2[j].bse.post), end="")
+        print ('\33[34m''{:>10.4f}{:<3s}' '\33[0m'.format(reg_output2[j].bse.post, ""), end="")
     # p-value
-    print(" "*110)
+    print(" "*116)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output2)):
-        print ('\33[31m' '{:>12.4f}' '\33[0m'.format(reg_output2[j].pvalues.post), end="")
+        print ('\33[31m' '{:>10.4f}{:<3s}' '\33[0m'.format(reg_output2[j].pvalues.post, ""), end="")
     
     #footer
-    print(" "*110)
-    print('\u2014'*110)
+    print(" "*116)
+    print('\u2014'*116)
     print("Notes: The dependent variables are the natural logarithm of the monthly number of conceptions and abortions,")
     print("respectively. For each of them, the coefficient, standard error, and p-value of the binary treatment indicator")
     print("variable is reported.")
