@@ -212,6 +212,7 @@ def reg_conception(data_frame):
     reg8 = smf.ols(formula =
             'ln ~ post + mc + post*mc + mc2 + post*mc2 + days + feb + mar + apr + mai + jun + jul + aug + sep + oct + nov + dec', data=dfb_list[1]).fit(cov_type='HC1')
     
+
     # store regression results in list
     reg_list_b = [reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8]
 
@@ -284,8 +285,8 @@ def table_reg_output(reg_output1, reg_output2):
     print('\u2014'*116)
     # header
     print('{:<12s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}'
-          .format("", "RDD (1)", "", "RDD (2)", "", "RDD (3)", "", "RDD (4)", "", "RDD (5)", "", "DID (6)", "", \
-                  "DID (7)", "", "DID (8)", ""))
+          .format("", "RDD (1)", "", "RDD (2)", "", "RDD (3)", "", "RDD (4)", "", "RDD (5)", "", "MFE (6)", "", \
+                  "MFE (7)", "", "MFE (8)", ""))
     print('{:<12s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}'
           .format("", "10 years", "", "5 years", "", "12 months", "", "9 months", "", "3 months", "", "10 years", "", \
                   "7 years", "", "5 years", ""))
@@ -295,45 +296,49 @@ def table_reg_output(reg_output1, reg_output2):
     print('{:<12s}'.format("Conceptions"), end="")
     # coefficient estimate
     for i in range(len(reg_output1)):
-        print ('{:>10.4f}{:<3s}'.format(reg_output1[i].params.post, star_function(reg_output1[i].pvalues.post)), end="")
+        print ('\033[1m' '{:>10.4f}{:<3s}' '\033[0m'.format(reg_output1[i].params.post,\
+                                                            star_function(reg_output1[i].pvalues.post)), end="")
     # standard error
     print(" "*116)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output1)):
-        print ('\33[34m''{:>10.4f}{:<3s}' '\33[0m'.format(reg_output1[j].bse.post, ""), end="")
+        print ('{:>10.4f}{:<3s}'.format(reg_output1[j].bse.post, ""), end="")
+    '''
     # p-value
     print(" "*116)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output1)):
         print ('\33[31m' '{:>10.4f}{:<3s}' '\33[0m'.format(reg_output1[j].pvalues.post, ""), end="")
-    
+    '''
     # REG OUTPUT 2
     print(" "*116)
     print(" "*116)
     print('{:<12s}'.format("Abortions"), end="")
     # coefficient estimate
     for i in range(len(reg_output2)):
-        print ('{:>10.4f}{:<3s}'.format(reg_output2[i].params.post, star_function(reg_output2[i].pvalues.post)), end="")
+        print ('\033[1m' '{:>10.4f}{:<3s}' '\033[0m'.format(reg_output2[i].params.post,\
+                                                            star_function(reg_output2[i].pvalues.post)), end="")
     # standard error
     print(" "*116)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output2)):
-        print ('\33[34m''{:>10.4f}{:<3s}' '\33[0m'.format(reg_output2[j].bse.post, ""), end="")
+        print ('{:>10.4f}{:<3s}'.format(reg_output2[j].bse.post, ""), end="")
+    '''
     # p-value
     print(" "*116)
     print('{:<12s}'.format(""), end="")
     for j in range(len(reg_output2)):
         print ('\33[31m' '{:>10.4f}{:<3s}' '\33[0m'.format(reg_output2[j].pvalues.post, ""), end="")
-    
+    '''
     #footer
     print(" "*116)
     print('\u2014'*116)
     print("Notes: The dependent variables are the natural logarithm of the monthly number of conceptions and abortions,")
-    print("respectively. For each of them, the coefficient, standard error, and p-value of the binary treatment indicator")
-    print("variable is reported.")
-    print ('- coefficient estimates')
-    print ('\33[34m' '- standard errors' '\33[0m')
-    print ('\33[31m' '- p-values' '\33[0m')
+    print("respectively. For each of them the coefficient of the binary treatment indicator variable is printed in bold")
+    print("font. The corresponding standard errors are always reported below.")
+    print ('***Significance at the 1 percent level.')
+    print (' **Significance at the 5 percent level.')
+    print ('  *Significance at the 10 percent level.')
     
     
         
