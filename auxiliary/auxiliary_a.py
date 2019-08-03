@@ -283,7 +283,7 @@ def star_function(p):
 def table_reg_output(reg_output1, reg_output2):
     
     # Make a table equivalent to Table 2 with coefficients and se for post variable
-    print('Table 3 - Fertility Results (Conceptions and Abortions)')
+    print('\033[1m' 'Table 3 - Fertility Results (Conceptions and Abortions)' '\033[0m')
     print('\u2014'*116)
     # header
     print('{:<12s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}'
@@ -332,12 +332,19 @@ def table_reg_output(reg_output1, reg_output2):
     for j in range(len(reg_output2)):
         print ('\33[31m' '{:>10.4f}{:<3s}' '\33[0m'.format(reg_output2[j].pvalues.post, ""), end="")
     '''
-    #footer
     print(" "*116)
+    print('{:<17s}{:<13s}{:<13s}{:<13s}{:<13s}{:<13s}{:<13s}{:<13s}{:<13s}'.format(\
+          "Linear trend", "Yes", "Yes", "Yes", "Yes", "No", "Yes", "Yes", "Yes"))
+    print('{:<17s}{:<13s}{:<13s}{:<13s}{:<13s}{:<13s}{:<13s}{:<13s}{:<13s}'.format(\
+          "Quadratic", "Yes", "Yes", "Yes", "No", "No", "Yes", "Yes", "Yes"))
+    print('{:<17s}{:<13s}{:<13s}{:<13s}{:<13s}{:<13s}{:<13s}{:<13s}{:<13s}'.format(\
+          "Cubic", "Yes", "No", "No", "No", "No", "Yes", "No", "No"))
+
+    #footer
     print('\u2014'*116)
     print("Notes: The dependent variables are the natural logarithm of the monthly number of conceptions and abortions,")
-    print("respectively. For each of them the coefficient of the binary treatment indicator variable is printed in bold")
-    print("font. The corresponding standard errors are always reported below.")
+    print("respectively. For each of them the coefficient of the binary treatment indicator variable, post, is printed in")
+    print("bold font. The corresponding standard errors are always reported below.")
     print ('***Significance at the 1 percent level.')
     print (' **Significance at the 5 percent level.')
     print ('  *Significance at the 10 percent level.')
