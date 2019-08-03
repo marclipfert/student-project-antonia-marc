@@ -9,6 +9,8 @@ import statsmodels.formula.api as smf
 
 #************************************** CONCEPTIONS *************************************
 
+
+
 # Create month of birth variable based on month of policy intervention in July 2007
 def gen_var_m():
     dfb = pd.read_stata('data/data_births_20110196.dta')
@@ -342,5 +344,32 @@ def table_reg_output(reg_output1, reg_output2):
     
     
         
+        
+#****************************************** VARIABLE TABLES ****************************************
 
+# Table with variables
+def table_with_variables():
+    print('\033[1m' 'Variables' '\033[0m')
+    print('\u2014'*80)
+    print('{:<18s}{:<18s}'.format("Variable Name", "Description"))
+    print('\u2014'*80)
     
+    print('{:<18s}{:<18s}'.format("mesp", "Month of birth"))
+    print('{:<18s}{:<18s}'.format("year", "Year of birth"))
+    print('{:<18s}{:<18s}'.format("prem", "Prematurity indicator (1 if baby is not premature, 2 if it is)"))
+    print('{:<18s}{:<18s}'.format("semanas", "Number of weeks of gestation at birth"))
+
+def table_with_other_variables():
+    print('\033[1m' 'Other Variables' '\033[0m')
+    print('\u2014'*100)
+    print('{:<18s}{:<18s}'.format("Variable Name", "Description"))
+    print('\u2014'*100)
+    
+    print('{:<18s}{:<18s}'.format("july", "july indicator"))
+    print('{:<18s}{:<18s}'.format("post", "indicator for treatment group (post-policy conception), i.e. after June 2007"))
+    print('{:<18s}{:<18s}'.format("mc2, mc3", "quadratic and cubic mc"))
+    print('{:<18s}{:<18s}'.format("ln", "natural logarithm of number of conceptions per month"))
+    print('{:<18s}{:<18s}'.format("jan, feb, ...", "month dummies"))
+
+
+  

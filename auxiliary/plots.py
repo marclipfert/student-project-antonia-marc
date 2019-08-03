@@ -38,7 +38,7 @@ def RDD_plot_conceptions(dataframe, reg_output):
     # plot
     dfb_subset.plot(x='mc',y='ln',kind="scatter",ylim=(10.45,10.8), color = b_col)
     plt.plot(dfb_subset_y0['mc'], b_fit_y0, dfb_subset_y1['mc'], b_fit_y1)
-    plt.axvline(x = -0.5, color="b")
+    plt.axvline(x = -0.5, color="k")
     plt.title('Natural logarithm of Number of Conceptions per Month')
     plt.show()
 
@@ -75,6 +75,6 @@ def RDD_plot_abortions(dataframe, reg_output):
     # plot
     dfa_subset.plot(x='m',y='log_ive',kind="scatter",ylim=(8.6,9.4), color = a_col)
     plt.plot(dfa_subset_y0['m'], a_fit_y0, dfa_subset_y1['m'], a_fit_y1)
-    plt.axvline(x = -0.5, color="b")
+    plt.axvline(x = -0.5, color="k")
     plt.title('Natural logarithm of Number of Abortions per Month')
     plt.show()
