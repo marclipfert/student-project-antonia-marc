@@ -179,7 +179,7 @@ def table_reg_output_2(reg_output1, reg_output2):
     print('\u2014'*116)    
     print("Notes: The dependent variable is always the natural logarithm of the monthly number of conceptions.")
     print("For each of the specifications, the coefficient of the binary treatment indicator variable is printed in bold")
-    print("font. The corresponding standard errors are reported below.")
+    print("font. The corresponding heteroscedasticity-robust standard errors are reported below.")
     print ('***Significance at the 1 percent level.')
     print (' **Significance at the 5 percent level.')
     print ('  *Significance at the 10 percent level.')

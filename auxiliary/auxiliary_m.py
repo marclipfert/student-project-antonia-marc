@@ -763,7 +763,7 @@ def table_conceptions_NW(reg_list_b, reg_list_b_NW):
         print ('\033[1m' '{:>12.4f}{:<3s}''\033[0m'.format(reg_list_b[i].params.post,\
                                                            star_function(reg_list_b[i].pvalues.post)), end="")
     print(" "*49)
-    print('{:<18s}'.format("robust SE"), end="")
+    print('{:<18s}'.format("  robust SE"), end="")
     for j in range(5,7):
         print ('{:>12.4f}{:<3s}'.format(reg_list_b[j].bse.post, ""), end="")
     
@@ -774,7 +774,7 @@ def table_conceptions_NW(reg_list_b, reg_list_b_NW):
         print ('\033[1m' '{:>12.4f}{:<3s}''\033[0m'.format(reg_list_b_NW[i].params.post,\
                                                            star_function(reg_list_b_NW[i].pvalues.post)), end="")
     print(" "*49)
-    print('{:<18s}'.format("Newey West SE"), end="")
+    print('{:<18s}'.format("  Newey West SE"), end="")
     for j in range(len(reg_list_b_NW)):
         print ('{:>12.4f}{:<3s}'.format(reg_list_b_NW[j].bse.post, ""), end="")
     
@@ -787,5 +787,139 @@ def table_conceptions_NW(reg_list_b, reg_list_b_NW):
     print (' **Significance at the 5 percent level.')
     print ('  *Significance at the 10 percent level.')
    
+
+
+# Newey-West regressions for abortions
+
+def reg_abortions_NW(data_frame):
     
+    # create necessary subsets of data_frame
+    dfa_list = list()
+    dfa_list.append(data_frame.loc[(data_frame['m']>-31) & (data_frame['m']<30)]) # 5 years
     
+    # Newey West regressions:
+    reg8_NW = smf.ols(formula =
+            'log_ive ~ post + m + post*m + m2 + post*m2 + days + feb + mar + apr + mai + jun + jul + aug + sep + oct + nov + dec', data=dfa_list[0]).fit(cov_type='HAC',cov_kwds={'maxlags':1})
+    
+    # store regression results in list
+    reg_list_a_NW = [reg8_NW]
+
+       
+    return reg_list_a_NW 
+
+# comparing Results for abortions:
+
+def table_abortions_NW(reg_list_a, reg_list_a_NW):
+
+    print('\u2014'*40)
+    print('{:<18s}{:>12s}{:<3s}'.format("", "MFE (8)", ""))
+    print('{:<18s}{:>12s}{:<3s}'.format("", "5 years", ""))
+    print('\u2014'*40)
+    print('{:<18s}'.format("Abortions -"), end="")
+    print ('\033[1m' '{:>12.4f}{:<3s}''\033[0m'.format(reg_list_a[7].params.post,\
+                                                       star_function(reg_list_a[7].pvalues.post)), end="")
+    print(" "*49)
+    print('{:<18s}'.format("  robust SE"), end="")
+    print ('{:>12.4f}{:<3s}'.format(reg_list_a[7].bse.post, ""), end="")
+    
+    print(" "*49)
+    print(" "*49)
+    print('{:<18s}'.format("Abortions -"), end="")
+    print ('\033[1m' '{:>12.4f}{:<3s}''\033[0m'.format(reg_list_a_NW[0].params.post,\
+                                                       star_function(reg_list_a_NW[0].pvalues.post)), end="")
+    print(" "*49)
+    print('{:<18s}'.format("  Newey West SE"), end="")
+    print ('{:>12.4f}{:<3s}'.format(reg_list_a_NW[0].bse.post, ""), end="")
+    
+    print(" "*49)
+    print('\u2014'*40)  
+    print("Notes: The dependent variable is the natural logarithm of the monthly number of abortions.")
+    print("The coefficient of the binary treatment indicator is printed in bold font. ")
+    print("Standard errors are reported below.")
+    print ('***Significance at the 1 percent level.')
+    print (' **Significance at the 5 percent level.')
+    print ('  *Significance at the 10 percent level.')
+    
+# comparing Results for labor supply:
+
+def table_LS_ac(reg_spec7_LS_robust, reg_spec7_LS, reg_spec7_LS_NW):
+
+    print('\u2014'*40)
+    print('{:<25s}{:>12s}{:<3s}'.format("", "MFE", ""))
+    print('{:<25s}{:>12s}{:<3s}'.format("", "(7)", ""))
+    print('\u2014'*40)
+    print('{:<25s}'.format("Working last week -"), end="")
+    print ('\033[1m' '{:>12.4f}{:<3s}''\033[0m'.format(reg_spec7_LS[0].params.post,""))
+    print('{:<25s}'.format("  robust SE"), end="")
+    print ('{:>12.4f}{:<3s}'.format(reg_spec7_LS_robust[0].bse.post, star_function(reg_spec7_LS_robust[0].pvalues.post)))
+    print('{:<25s}'.format("  clustered SE"), end="")
+    print ('{:>12.4f}{:<3s}'.format(reg_spec7_LS[0].bse.post, star_function(reg_spec7_LS[0].pvalues.post)))
+    print('{:<25s}'.format("  Newey-West SE"), end="")
+    print ('{:>12.4f}{:<3s}'.format(reg_spec7_LS_NW[0].bse.post, star_function(reg_spec7_LS_NW[0].pvalues.post)))
+    print(" "*49)
+
+    print('{:<25s}'.format("Employed -"), end="")
+    print ('\033[1m' '{:>12.4f}{:<3s}''\033[0m'.format(reg_spec7_LS[1].params.post,""))
+    print('{:<25s}'.format("  robust SE"), end="")
+    print ('{:>12.4f}{:<3s}'.format(reg_spec7_LS_robust[1].bse.post, star_function(reg_spec7_LS_robust[1].pvalues.post)))
+    print('{:<25s}'.format("  clustered SE"), end="")
+    print ('{:>12.4f}{:<3s}'.format(reg_spec7_LS[1].bse.post, star_function(reg_spec7_LS[1].pvalues.post)))
+    print('{:<25s}'.format("  Newey-West SE"), end="")
+    print ('{:>12.4f}{:<3s}'.format(reg_spec7_LS_NW[1].bse.post, star_function(reg_spec7_LS_NW[1].pvalues.post)))
+    
+    print('\u2014'*40)  
+    print("Notes: The coefficient of the binary treatment indicator is always printed in bold font. ")
+    print("Standard errors are reported below.")
+    print ('***Significance at the 1 percent level.')
+    print (' **Significance at the 5 percent level.')
+    print ('  *Significance at the 10 percent level.')
+
+ 
+
+#******************************************************************************
+#********************** Global vs. Local Polynomial ***************************
+#******************************************************************************
+
+# comparing Results for daycare:
+
+
+def table_daycare_poly(reg_spec7_childcare_global, reg_spec7_childcare):
+
+    print('\u2014'*40)
+    print('{:<25s}{:>12s}{:<3s}'.format("", "MFE", ""))
+    print('{:<25s}{:>12s}{:<3s}'.format("", "(7)", ""))
+    print('\u2014'*40)
+    print('{:<25s}'.format("Private day care"), end="")
+    print ('\033[1m' '{:>12.4f}{:<3s}''\033[0m'.format(reg_spec7_childcare[0].params.post,\
+                                                       star_function(reg_spec7_childcare[0].pvalues.post)))
+    print('{:<25s}'.format("- local polynomial"), end="")
+    print ('{:>12.4f}{:<3s}'.format(reg_spec7_childcare[0].bse.post,""))
+    print(" "*49)
+    
+    print('{:<25s}'.format("Private day care"), end="")
+    print ('\033[1m' '{:>12.4f}{:<3s}''\033[0m'.format(reg_spec7_childcare_global[0].params.post,\
+                                                       star_function(reg_spec7_childcare_global[0].pvalues.post)))
+    print('{:<25s}'.format("- global polynomial"), end="")
+    print ('{:>12.4f}{:<3s}'.format(reg_spec7_childcare_global[0].bse.post,""))
+    print(" "*49)
+
+    print('{:<25s}'.format("Priv. day care (binary)"), end="")
+    print ('\033[1m' '{:>12.4f}{:<3s}''\033[0m'.format(reg_spec7_childcare[1].params.post,\
+                                                      star_function(reg_spec7_childcare[1].pvalues.post)))
+    print('{:<25s}'.format("- local polynomial"), end="")
+    print ('{:>12.4f}{:<3s}'.format(reg_spec7_childcare[1].bse.post, ""))
+    print(" "*49)
+
+    print('{:<25s}'.format("Priv. day care (binary)"), end="")
+    print ('\033[1m' '{:>12.4f}{:<3s}''\033[0m'.format(reg_spec7_childcare_global[1].params.post,\
+                                                      star_function(reg_spec7_childcare_global[1].pvalues.post)))
+    print('{:<25s}'.format("- global polynomial"), end="")
+    print ('{:>12.4f}{:<3s}'.format(reg_spec7_childcare_global[1].bse.post, ""))
+    
+    print('\u2014'*40)  
+    print("Notes: The coefficient of the binary treatment indicator is always printed in bold font. ")
+    print("Heteroscedasticity-robust standard errors are reported below.")
+    print ('***Significance at the 1 percent level.')
+    print (' **Significance at the 5 percent level.')
+    print ('  *Significance at the 10 percent level.')
+
