@@ -17,14 +17,14 @@
 
 % The graph
 \begin{tikzpicture}
-    %\node (t) at (0,0) [label=left:T, point];
+   
     \node (D) at (2,0) [label=left:T, point];
 		\node (w) at (4,0) [label=below:D, point];
-    \node (e) at (7,3) [label=above:Y\textsubscript{\RomanNumeralCaps{1}}, point];
-		\node (l) at (7,0) [label=above:Y\textsubscript{\RomanNumeralCaps{2}}, point];
-		\node (c) at (7,-3) [label=below:Y\textsubscript{\RomanNumeralCaps{3}}, point];
-		\node (p) at (10,2) [label=right:P, point];
-		\node (u) at (10,-2) [label=right:U, point, fill=none];
+    \node (e) at (7,3) [label=above:Y\textsubscript{3}, point];
+		\node (l) at (7,0) [label=above:Y\textsubscript{4}, point];
+		\node (c) at (7,-3) [label=below:Y\textsubscript{5}, point];
+		\node (p) at (10,0) [label=right:P, point];
+		%\node (u) at (10,-2) [label=right:U, point, fill=none];
 
     %\path (t) edge (D);
 		\path (D) edge (w);
@@ -33,32 +33,33 @@
 		\path (w) edge (c);
 		%\path (l) edge (w);
 		\path (l) edge (c);
+		\path (c) edge (l);
 		\path (p) edge (e);
 		\path (p) edge (l);
 		\path (p) edge (c);
 		%\path (p) edge (w);
-		\path (u) edge (e);
-		\path (u) edge (l);
-		\path (u) edge (c);
+		%\path (u) edge (e);
+		%\path (u) edge (l);
+		%\path (u) edge (c);
 		%\path (u) edge (w);
     %\path[bidirected] (2) edge[bend left=50]  (3);
 		
 		%Legend%
 		\node (l1) at (0.5,-1) [label=right:\tiny T:];
 		\node (l2) at (0.5,-1.2) [label=right:\tiny D:];
-		\node (l3) at (0.5,-1.4) [label=right:\tiny Y\textsubscript{\RomanNumeralCaps{1}}:];
-		\node (l4) at (0.5,-1.6) [label=right:\tiny Y\textsubscript{\RomanNumeralCaps{2}}:];
-		\node (l5) at (0.5,-1.8) [label=right:\tiny Y\textsubscript{\RomanNumeralCaps{3}}:];
+		\node (l3) at (0.5,-1.4) [label=right:\tiny Y\textsubscript{3}:];
+		\node (l4) at (0.5,-1.6) [label=right:\tiny Y\textsubscript{4}:];
+		\node (l5) at (0.5,-1.8) [label=right:\tiny Y\textsubscript{5}:];
 		\node (l6) at (0.5,-2) [label=right:\tiny P:];
-		\node (l7) at (0.5,-2.2) [label=right:\tiny U:];
+		%\node (l7) at (0.5,-2.2) [label=right:\tiny U:];
 		% text for legend
-		\node (l1t) at (1.1,-1) [label=right:\tiny time];
-		\node (l2t) at (1.1,-1.2) [label=right:\tiny child benefit];
-		\node (l3t) at (1.1,-1.4) [label=right:\tiny household expenditures];
-		\node (l4t) at (1.1,-1.6) [label=right:\tiny maternal labor supply];
-		\node (l5t) at (1.1,-1.8) [label=right:\tiny child care use];
-		\node (l6t) at (1.1,-2) [label=right:\tiny personal characteristics];
-		\node (l7t) at (1.1,-2.2) [label=right:\tiny unobservables];
+		\node (l1t) at (1,-1) [label=right:\tiny time];
+		\node (l2t) at (1,-1.2) [label=right:\tiny child benefit];
+		\node (l3t) at (1,-1.4) [label=right:\tiny household expenditures];
+		\node (l4t) at (1,-1.6) [label=right:\tiny maternal labor supply];
+		\node (l5t) at (1,-1.8) [label=right:\tiny child care use];
+		\node (l6t) at (1,-2) [label=right:\tiny personal characteristics];
+		%\node (l7t) at (1.1,-2.2) [label=right:\tiny unobservables];
 
 \end{tikzpicture}
 
