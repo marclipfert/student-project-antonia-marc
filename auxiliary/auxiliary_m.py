@@ -163,7 +163,7 @@ def table_childcare(dep_vars_childcare,dep_vars_childcare_name,reg_spec1_childca
     print('{:<24s}{:>11s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}'.format("", \
           "RDD 9m", "","RDD 6m", "", "RDD 4m", "", "RDD 3m", "", "RDD 2m", "", "RDD 2m", "", "MFE", ""))
     print('{:<24s}{:>11s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}'.format("", \
-          "(1)", "", "(2)", "", "(3)", "", "(4)", "", "(5)", "", "(6)", "", "(7)*", ""))
+          "(1)", "", "(2)", "", "(3)", "", "(4)", "", "(5)", "", "(6)", "", "(7)", ""))
     print('\u2014'*109)
     x=0
     while x < len(dep_vars_childcare):
@@ -274,35 +274,34 @@ def preparation_lfs():
 
 #printing regression output for labor supply:
     
-def table_LS(dep_vars_LS, dep_vars_LS_name, reg_spec1_LS, reg_spec2_LS, reg_spec3_LS, reg_spec4_LS, reg_spec5_LS, reg_spec6_LS, reg_spec7_LS, reg_spec8_LS):
-    print('\u2014'*114)
-    print('{:<18s}{:>11s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}'.format("", \
-          "RDD 9m", "", "RDD 6m", "", "RDD 4m", "", "RDD 3m", "", "RDD 2m", "", "RDD 2m", "", "MFE*", "", "MFE**", ""))
-    print('{:<18s}{:>11s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}'.format("", \
-          "(1)", "", "(2)", "", "(3)", "", "(4)", "", "(5)", "", "(6)", "", "(7)", "", "(8)", ""))
-    print('\u2014'*114)
+def table_LS(dep_vars_LS, dep_vars_LS_name, reg_spec1_LS, reg_spec2_LS, reg_spec3_LS, reg_spec4_LS, reg_spec5_LS, reg_spec6_LS, reg_spec7_LS):
+    print('\u2014'*104)
+    print('{:<18s}{:>11s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}'.format("", \
+          "RDD 9m", "", "RDD 6m", "", "RDD 4m", "", "RDD 3m", "", "RDD 2m", "", "RDD 2m", "", "MFE", ""))
+    print('{:<18s}{:>11s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}{:>9s}{:<3s}'.format("", \
+          "(1)", "", "(2)", "", "(3)", "", "(4)", "", "(5)", "", "(6)", "", "(7)", ""))
+    print('\u2014'*104)
     x=0
     while x < len(dep_vars_LS):
-        print('{:<18s}' '\033[1m' '{:>12.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}' '\033[0m'.format(dep_vars_LS_name[x], \
+        print('{:<18s}' '\033[1m' '{:>12.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}' '\033[0m'.format(dep_vars_LS_name[x], \
               reg_spec1_LS[x].params.post, star_function( reg_spec1_LS[x].pvalues.post), \
               reg_spec2_LS[x].params.post, star_function( reg_spec2_LS[x].pvalues.post), \
               reg_spec3_LS[x].params.post, star_function( reg_spec3_LS[x].pvalues.post), \
               reg_spec4_LS[x].params.post, star_function( reg_spec4_LS[x].pvalues.post), \
               reg_spec5_LS[x].params.post, star_function( reg_spec5_LS[x].pvalues.post), \
               reg_spec6_LS[x].params.post, star_function( reg_spec6_LS[x].pvalues.post), \
-              reg_spec7_LS[x].params.post, star_function( reg_spec7_LS[x].pvalues.post), \
-              reg_spec8_LS[x].params.post, star_function( reg_spec8_LS[x].pvalues.post)  ))
-        print('{:<18s}{:>12.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}'.format("", \
+              reg_spec7_LS[x].params.post, star_function( reg_spec7_LS[x].pvalues.post) ))
+        print('{:<18s}{:>12.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}'.format("", \
               reg_spec1_LS[x].bse.post, "", reg_spec2_LS[x].bse.post, "", reg_spec3_LS[x].bse.post, "", \
               reg_spec4_LS[x].bse.post, "", reg_spec5_LS[x].bse.post, "", reg_spec6_LS[x].bse.post, "", \
-              reg_spec7_LS[x].bse.post, "", reg_spec8_LS[x].bse.post, "" ))
+              reg_spec7_LS[x].bse.post, ""))
         '''
         print('\33[31m' '{:<18s}{:>12.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}{:>9.3f}{:<3s}' '\33[0m'.format("", \
               reg_spec1_LS[x].pvalues.post, "", reg_spec2_LS[x].pvalues.post, "", reg_spec3_LS[x].pvalues.post, "", \
               reg_spec4_LS[x].pvalues.post, "", reg_spec5_LS[x].pvalues.post, "", reg_spec6_LS[x].pvalues.post, "", \
               reg_spec7_LS[x].pvalues.post, "",  reg_spec8_LS[x].pvalues.post, "" ))
         '''
-        print(""*114)
+        print(""*104)
         x += 1
     print('{:<18s}{:>11s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'.format(\
           "Linear trend in m", "Yes", "Yes", "Yes", "No", "No", "No", "Yes"))
@@ -310,7 +309,7 @@ def table_LS(dep_vars_LS, dep_vars_LS_name, reg_spec1_LS, reg_spec2_LS, reg_spec
           "Quad. trend in m", "Yes", "No", "No", "No", "No", "No", "Yes"))
     print('{:<18s}{:>11s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}{:>12s}'.format(\
           "Controls", "Yes", "Yes", "Yes", "Yes", "No", "Yes", "Yes"))
-    print('\u2014'*114)
+    print('\u2014'*104)
     print("Notes: For each of the dependent variables, the coefficient of the binary treatment indicator variable")
     print("is printed in bold font. For all specifications, standard errors are heteroscedasticity-robust.")
     print("Additionally, standard errors are clustered at the monthly level in the MFE specification.")
@@ -371,14 +370,21 @@ def preparation_abolishment(df):
     df_births2.loc[df_births2['year']==2010, ['year', 'mesp', 'm']]
 
     # Create month of conception
+    df_births2['mc'] = np.nan
+    
+    # compute month of conception using information about #-of weeks of pregancy (semanas)
+    df_births2.loc[(0 < df_births2['semanas']) & (df_births2['semanas'] <= 21), 'mc'] = df_births2['m'] - 4
+    df_births2.loc[(21 < df_births2['semanas']) & (df_births2['semanas'] <= 25), 'mc'] = df_births2['m'] - 5
+    df_births2.loc[(25 < df_births2['semanas']) & (df_births2['semanas'] <= 29), 'mc'] = df_births2['m'] - 6
+    df_births2.loc[(29 < df_births2['semanas']) & (df_births2['semanas'] <= 34), 'mc'] = df_births2['m'] - 7
+    df_births2.loc[(34 < df_births2['semanas']) & (df_births2['semanas'] <= 38), 'mc'] = df_births2['m'] - 8
+    df_births2.loc[(38 < df_births2['semanas']) & (df_births2['semanas'] <= 43), 'mc'] = df_births2['m'] - 9
+    df_births2.loc[43 < df_births2['semanas'], 'mc'] = df_births2['m'] - 10
+    
+    # if semanas is missing: approximate mc using premature baby indicator (like the author)
+    df_births2.loc[(np.isnan(df_births2['semanas']) | (0 == df_births2['semanas'])) & (df_births2['prem'] == 1), 'mc'] = df_births2['m'] - 9
+    df_births2.loc[(np.isnan(df_births2['semanas']) | (0 == df_births2['semanas'])) & (df_births2['prem'] == 2), 'mc'] = df_births2['m'] - 8
 
-    df_births2['mc'] = np.where((df_births2['prem'] == 2) |
-        # if premature baby subtract only 8 months to get month of conception
-        ((0 < df_births2['semanas']) & (df_births2['semanas'] < 39)), df_births2['m'] - 8,
-        # otherwise if baby was born only after 43 months --> -10
-        np.where(df_births2['semanas'] > 43, df_births2['m'] - 10,
-        # otherwise  - 9
-        df_births2['m'] - 9))
 
     df_births2['n'] = 1
     df_abolishment = df_births2.groupby('mc', as_index = False)['n'].count()
@@ -447,17 +453,17 @@ def preparation_abolishment(df):
 # regression output table for the abolishment of the policy:
     
 def table_abolishment(reg_list_abolishment):
-    print('\u2014'*87)
-    print('{:<12s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", \
-          "RDD (1)", "", "RDD (2)", "", "RDD (3)", "", "RDD (4)", "", "DID (5)", ""))
-    print('{:<12s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", \
+    print('\u2014'*94)
+    print('{:<18s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", \
+          "RDD (1)", "", "RDD (2)", "", "RDD (3)", "", "RDD (4)", "", "MFE (5)", ""))
+    print('{:<18s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", \
           "5 years", "", "12 months", "", "9 months", "", "3 months", "", "5 years", ""))
-    print('\u2014'*87)
-    print('{:<12s}'.format("Conceptions"), end="")
+    print('\u2014'*94)
+    print('{:<18s}'.format("Conceptions"), end="")
     for i in range(len(reg_list_abolishment)):
         print ('\033[1m' '{:>12.4f}{:<3s}' '\033[0m'.format(reg_list_abolishment[i].params.post, star_function(reg_list_abolishment[i].pvalues.post)), end="")
     print(" "*87)
-    print('{:<12s}'.format(""), end="")
+    print('{:<18s}'.format(""), end="")
     for j in range(len(reg_list_abolishment)):
         print ( '{:>12.4f}{:<3s}'.format(reg_list_abolishment[j].bse.post,""), end="")
     '''
@@ -467,8 +473,14 @@ def table_abolishment(reg_list_abolishment):
         print ('\33[31m' '{:>12.4f}{:<3s}' '\33[0m'.format(reg_list_abolishment[j].pvalues.post, ""), end="")
     '''
     print(" "*87)
-    print('\u2014'*87)
-    print("Notes: For each of the dependent variables, the coefficient of the binary treatment indicator variable is")
+    print(" "*87)
+    print('{:<18s}{:>12s}{:>15s}{:>15s}{:>15s}{:>15s}'.format(\
+          "Linear trend in m", "Yes", "Yes", "Yes", "No", "Yes"))
+    print('{:<18s}{:>12s}{:>15s}{:>15s}{:>15s}{:>15s}'.format(\
+          "Quad. trend in m", "Yes", "Yes", "No", "No", "Yes"))
+    print('\u2014'*94)
+    print("Notes: The dependent variable is the natural logarithm of the monthly number of conceptions.")
+    print("For each of the specifications, the coefficient of the binary treatment indicator variable is")
     print("printed in bold font. The corresponding standard errors are always reported below.")
     print ('***Significance at the 1 percent level.')
     print (' **Significance at the 5 percent level.')
@@ -496,16 +508,22 @@ def preparation_placebo_july(df):
     
     df_births3.loc[df_births3['year']==2016, ['year', 'mesp', 'm']]
 
-    # Create month of conception (sophisticated version)
-
-    df_births3['mc'] = np.where((df_births3['prem'] == 2) |
-        # if premature baby subtract only 8 months to get month of conception
-        ((0 < df_births3['semanas']) & (df_births3['semanas'] < 39)), df_births3['m'] - 8,
-        # otherwise if baby was born only after 43 months --> -10
-        np.where(df_births3['semanas'] > 43, df_births3['m'] - 10,
-        # otherwise  - 9
-        df_births3['m'] - 9))
-
+    # Create month of conception
+    df_births3['mc'] = np.nan
+    
+        # compute month of conception using information about #-of weeks of pregancy (semanas)
+    df_births3.loc[(0 < df_births3['semanas']) & (df_births3['semanas'] <= 21), 'mc'] = df_births3['m'] - 4
+    df_births3.loc[(21 < df_births3['semanas']) & (df_births3['semanas'] <= 25), 'mc'] = df_births3['m'] - 5
+    df_births3.loc[(25 < df_births3['semanas']) & (df_births3['semanas'] <= 29), 'mc'] = df_births3['m'] - 6
+    df_births3.loc[(29 < df_births3['semanas']) & (df_births3['semanas'] <= 34), 'mc'] = df_births3['m'] - 7
+    df_births3.loc[(34 < df_births3['semanas']) & (df_births3['semanas'] <= 38), 'mc'] = df_births3['m'] - 8
+    df_births3.loc[(38 < df_births3['semanas']) & (df_births3['semanas'] <= 43), 'mc'] = df_births3['m'] - 9
+    df_births3.loc[43 < df_births3['semanas'], 'mc'] = df_births3['m'] - 10
+    
+    # if semanas is missing: approximate mc using premature baby indicator (like the author)
+    df_births3.loc[(np.isnan(df_births3['semanas']) | (0 == df_births3['semanas'])) & (df_births3['prem'] == 1), 'mc'] = df_births3['m'] - 9
+    df_births3.loc[(np.isnan(df_births3['semanas']) | (0 == df_births3['semanas'])) & (df_births3['prem'] == 2), 'mc'] = df_births3['m'] - 8
+ 
     df_births3['n'] = 1
     df_placebo_july = df_births3.groupby('mc', as_index = False)['n'].count()
     
@@ -569,16 +587,16 @@ def preparation_placebo_july(df):
 # regression output table for placebo test July:
 def table_placebo_july(reg_list_placebo_july):
     
-    print('\u2014'*40)
-    print('{:<12s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", "RDD (1)", "", "RDD (2)", ""))
-    print('{:<12s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", "9 months", "", "3 months", ""))
-    print('\u2014'*40)
-    print('{:<12s}'.format("Conceptions"), end="")
+    print('\u2014'*47)
+    print('{:<18s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", "RDD (1)", "", "RDD (2)", ""))
+    print('{:<18s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", "9 months", "", "3 months", ""))
+    print('\u2014'*47)
+    print('{:<18s}'.format("Conceptions"), end="")
     for i in range(len(reg_list_placebo_july)):
         print ('\033[1m' '{:>12.4f}{:<3s}' '\033[0m'.format(reg_list_placebo_july[i].params.post,\
                                                             star_function(reg_list_placebo_july[i].pvalues.post)), end="")
     print(" "*40)
-    print('{:<12s}'.format(""), end="")
+    print('{:<18s}'.format(""), end="")
     for j in range(len(reg_list_placebo_july)):
         print ('{:>12.4f}{:<3s}'.format(reg_list_placebo_july[j].bse.post, ""), end="")
     '''
@@ -588,10 +606,14 @@ def table_placebo_july(reg_list_placebo_july):
         print ('\33[31m' '{:>12.4f}{:<3s}' '\x1b[0m'.format(reg_list_placebo_july[j].pvalues.post, ""), end="")
     '''
     print(" "*40)
-    print('\u2014'*40)  
+    print(" "*40)
+    print('{:<18s}{:>12s}{:>15s}'.format(\
+          "Linear trend in m", "Yes", "No"))
+    
+    print('\u2014'*47)  
     print("Notes: The dependent variable is the natural logarithm of the monthly number of conceptions.")
     print("For each of the specifications, the coefficient of the binary treatment indicator is printed")
-    print("in bold font. The correpsonding standard errors are reported below.")
+    print("in bold font. Heteroscedasticity-robust standard errors are reported below.")
     print ('***Significance at the 1 percent level.')
     print (' **Significance at the 5 percent level.')
     print ('  *Significance at the 10 percent level.')
@@ -615,15 +637,21 @@ def preparation_placebo_may(df):
     
     df_births4.loc[df_births4['year']==2016, ['year', 'mesp', 'm']]
 
-    # Create month of conception (sophisticated version)
-
-    df_births4['mc'] = np.where((df_births4['prem'] == 2) |
-        # if premature baby subtract only 8 months to get month of conception
-        ((0 < df_births4['semanas']) & (df_births4['semanas'] < 39)), df_births4['m'] - 8,
-        # otherwise if baby was born only after 43 months --> -10
-        np.where(df_births4['semanas'] > 43, df_births4['m'] - 10,
-        # otherwise  - 9
-        df_births4['m'] - 9))
+    # Create month of conception
+    df_births4['mc'] = np.nan
+    
+        # compute month of conception using information about #-of weeks of pregancy (semanas)
+    df_births4.loc[(0 < df_births4['semanas']) & (df_births4['semanas'] <= 21), 'mc'] = df_births4['m'] - 4
+    df_births4.loc[(21 < df_births4['semanas']) & (df_births4['semanas'] <= 25), 'mc'] = df_births4['m'] - 5
+    df_births4.loc[(25 < df_births4['semanas']) & (df_births4['semanas'] <= 29), 'mc'] = df_births4['m'] - 6
+    df_births4.loc[(29 < df_births4['semanas']) & (df_births4['semanas'] <= 34), 'mc'] = df_births4['m'] - 7
+    df_births4.loc[(34 < df_births4['semanas']) & (df_births4['semanas'] <= 38), 'mc'] = df_births4['m'] - 8
+    df_births4.loc[(38 < df_births4['semanas']) & (df_births4['semanas'] <= 43), 'mc'] = df_births4['m'] - 9
+    df_births4.loc[43 < df_births4['semanas'], 'mc'] = df_births4['m'] - 10
+    
+    # if semanas is missing: approximate mc using premature baby indicator (like the author)
+    df_births4.loc[(np.isnan(df_births4['semanas']) | (0 == df_births4['semanas'])) & (df_births4['prem'] == 1), 'mc'] = df_births4['m'] - 9
+    df_births4.loc[(np.isnan(df_births4['semanas']) | (0 == df_births4['semanas'])) & (df_births4['prem'] == 2), 'mc'] = df_births4['m'] - 8
 
     df_births4['n'] = 1
     df_placebo_may = df_births4.groupby('mc', as_index = False)['n'].count()
@@ -694,16 +722,16 @@ def preparation_placebo_may(df):
   
 def table_placebo_may(reg_list_p2):
 
-    print('\u2014'*43)
-    print('{:<12s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", "RDD (1)", "", "RDD (2)", ""))
-    print('{:<12s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", "9 months", "", "3 months", ""))
-    print('\u2014'*43)
-    print('{:<12s}'.format("Conceptions"), end="")
+    print('\u2014'*49)
+    print('{:<18s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", "RDD (1)", "", "RDD (2)", ""))
+    print('{:<18s}{:>12s}{:<3s}{:>12s}{:<3s}'.format("", "9 months", "", "3 months", ""))
+    print('\u2014'*49)
+    print('{:<18s}'.format("Conceptions"), end="")
     for i in range(len(reg_list_p2)):
         print ('\033[1m' '{:>12.4f}{:<3s}''\033[0m'.format(reg_list_p2[i].params.post,\
                                                            star_function(reg_list_p2[i].pvalues.post)), end="")
     print(" "*43)
-    print('{:<12s}'.format(""), end="")
+    print('{:<18s}'.format(""), end="")
     for j in range(len(reg_list_p2)):
         print ('{:>12.4f}{:<3s}'.format(reg_list_p2[j].bse.post, ""), end="")
     '''
@@ -713,10 +741,13 @@ def table_placebo_may(reg_list_p2):
         print ('\33[31m' '{:>12.4f}{:<3s}' '\x1b[0m'.format(reg_list_p2[j].pvalues.post, ""), end="")
     '''
     print(" "*43)
-    print('\u2014'*43)  
+    print(" "*40)
+    print('{:<18s}{:>12s}{:>15s}'.format(\
+          "Linear trend in m", "Yes", "No"))
+    print('\u2014'*49)  
     print("Notes: The dependent variable is the natural logarithm of the monthly number of conceptions.")
     print("For each of the specifications, the coefficient of the binary treatment indicator is printed")
-    print("in bold font. The correpsonding standard errors are reported below.")
+    print("in bold font. Heteroscedasticity-robust standard errors are reported below.")
     print ('***Significance at the 1 percent level.')
     print (' **Significance at the 5 percent level.')
     print ('  *Significance at the 10 percent level.')
