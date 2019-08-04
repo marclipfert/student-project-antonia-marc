@@ -25,7 +25,7 @@ In that article, the author investigates the effects of a universal child benefi
 The author's results suggest a significant increase in fertility, partly driven by a reduction in the number of abortions. Furthermore, she finds no effect on overall household expenditures, a significantly negative effect on mothers' labor supply the year after giving birth and significantly lower use of formal day care.
 
 ## Critical Assesment
-Apart from replicating key findings, we conduct a critical assessment of the author's empircal work. For this, we examine, first, whether accounting for autocorrelation is necessary in the given context of a regression discontinuity design in time. Secondly, we show revised estimates based on a more precise computation of the month of conception. Thirdly,
+Apart from replicating key findings, we conduct a critical assessment of the author's empircal work. For this, we examine, first, whether accounting for autocorrelation is necessary in the given context of a regression discontinuity design in time. Secondly, we show revised estimates based on a more precise computation of the month of conception. Thirdly, we examine the impact on the obtained estimates when using a local vs. a global polynomial time trend.
 
 ## Further Analyses
 Since the benefit was suspended in the aftermath of the financial crisis, we will exploit this fact and apply the identical research design to the abolishment of the policy in order to study the effect on conceptions. Furthermore, we will investigate the general reliability of the research design by executing two Placebo tests and a simulation study of a time-varying treatment effect.
