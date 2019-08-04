@@ -283,7 +283,7 @@ def star_function(p):
 def table_reg_output(reg_output1, reg_output2):
     
     # Make a table equivalent to Table 2 with coefficients and se for post variable
-    print('\033[1m' 'Table 3 - Fertility Results (Conceptions and Abortions)' '\033[0m')
+    print('\033[1m' 'Fertility Results (Conceptions and Abortions)' '\033[0m')
     print('\u2014'*116)
     # header
     print('{:<12s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}{:>10s}{:<3s}'
@@ -344,7 +344,7 @@ def table_reg_output(reg_output1, reg_output2):
     print('\u2014'*116)
     print("Notes: The dependent variables are the natural logarithm of the monthly number of conceptions and abortions,")
     print("respectively. For each of them the coefficient of the binary treatment indicator variable, post, is printed in")
-    print("bold font. The corresponding standard errors are always reported below.")
+    print("bold font. The corresponding heteroscedasticity-robust standard errors are always reported below.")
     print ('***Significance at the 1 percent level.')
     print (' **Significance at the 5 percent level.')
     print ('  *Significance at the 10 percent level.')

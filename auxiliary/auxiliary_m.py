@@ -954,3 +954,46 @@ def table_daycare_poly(reg_spec7_childcare_global, reg_spec7_childcare):
     print (' **Significance at the 5 percent level.')
     print ('  *Significance at the 10 percent level.')
 
+
+    
+    
+#******************************************************************************************************************
+#******************** Variable Tables
+#******************************************************************************************************************
+
+# variables in the hbs data set
+def table_with_hbs_variables():
+    print('\033[1m' 'Variables in the HBS data set' '\033[0m')
+    print('\u2014'*65)
+    print('{:<30s}{:<30s}'.format("Variable Name", "Description"))
+    print('\u2014'*65)
+    
+    print('{:<30s}{:<30s}'.format("gastmon", "Total expenditure"))
+    print('{:<30s}{:<30s}'.format("c_m_exp", "Child-related expenditure"))
+    print('{:<30s}{:<30s}'.format("dur_exp", "Durable expenditure"))
+    print('{:<30s}{:<30s}'.format("m_exp12312", "Day care expenditure"))
+    print('{:<30s}{:<30s}'.format("post", "Post-June 2007 dummy"))
+    print('{:<30s}{:<30s}'.format("month", "Month of birth"))
+    print('{:<30s}{:<30s}'.format("agemom", "Age of mother"))
+    print('{:<30s}{:<30s}'.format("sec1mom, sec2mom, unimom", "Mother's educational attainment"))
+    print('{:<30s}{:<50s}'.format("immig", "Immigrant status of the mother"))
+    print('{:<30s}{:<30s}'.format("sib", "Not first born child"))
+    
+# variables in the lfs data set
+def table_with_lfs_variables():
+    print('\033[1m' 'Variables in the LFS data set' '\033[0m')
+    print('\u2014'*65)
+    print('{:<30s}{:<30s}'.format("Variable Name", "Description"))
+    print('\u2014'*65)
+    
+    print('{:<30s}{:<30s}'.format("work", "Worked last week"))
+    print('{:<30s}{:<30s}'.format("work2", "Currently employed"))
+    print('{:<30s}{:<30s}'.format("post", "Post-June 2007 dummy"))
+    print('{:<30s}{:<30s}'.format("m", "Month of birth"))
+    print('{:<30s}{:<30s}'.format("age", "Age of mother"))
+    print('{:<30s}{:<30s}'.format("primary, hsgrad, univ", "Mother's educational attainment"))
+    print('{:<30s}{:<50s}'.format("immig", "Immigrant status of the mother"))
+    print('{:<30s}{:<30s}'.format("sib", "Not first born child"))
+    
+    
+    
