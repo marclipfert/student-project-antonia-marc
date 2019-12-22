@@ -1,14 +1,14 @@
 # Student project by Antonia Entorf & Marc Lipfert
 
 </a> 
-<a href="https://mybinder.org/v2/gh/HumanCapitalAnalysis/student-project-antonia-marc/master?filepath=student_project_Antonia_Marc.ipynb" 
+<a href="https://mybinder.org/v2/gh/marclipfert/student-project-antonia-marc/master?filepath=student_project_Antonia_Marc.ipynb" 
      target="_parent">
      <img align="center" 
         src="https://mybinder.org/badge_logo.svg" 
         width="109" height="20">
 </a>
 </a>
-<a href="https://nbviewer.jupyter.org/github/HumanCapitalAnalysis/student-project-antonia-marc/blob/master/student_project_Antonia_Marc.ipynb"
+<a href="https://nbviewer.jupyter.org/github/marclipfert/student-project-antonia-marc/blob/master/student_project_Antonia_Marc.ipynb"
    target="_parent">
    <img align="center" 
   src="https://raw.githubusercontent.com/jupyter/design/master/logos/Badges/nbviewer_badge.png" 
